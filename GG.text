@@ -1,0 +1,29 @@
+
+# la idea de este txt es mostrar las funciones y metodos que incorporara el programa, siendo el primero de mis sistemas que haga este tipo de materiales detallando la funcion de cada apartado a medida que surga una necesidad.
+en esta primera instancia, comenzare narrando los datos y tablas que estare necesitando dentro de la base de datos, intentando usar algo sencillo pero sin ser demasiado vago, es decir buscando un termino medio.
+
+#descripcion del proyecto:
+Glorius Gym o mejor abreviado GG, sera un sistema de gestion de clientes para los miembros del gimnasio, donde el usuario podra registrarse dentro del gimnasio y tener su propio usuario proporcionado dentro del gimnasio.
+es decir, la idea original, es que el usuario obtenga un enlace (o nombre de usuario y contraseña ya asignado) donde pueda iniciar sesion por primera vez en el gimnasio y configurar su ruta de entrenamiento y dar seguimiento a esta, Todo esto en base a la membresia que el usuario haya adquirido, es decir, una vez la membresia haya caducado, el usuario no podra seguir contando con la rutina de ejercicios hecha a la medida.
+
+esta es la base de lo que quiero crear y lo mas probable es que a medida que se este realizando el sistema, hayan cambios ligeros o bruscos; sin mas que decir, empezare a narrar funciones mucho mas tecnicas.
+
+*base de datos*
+Miembros:
+nombres completos, direcciones, números de teléfono, correos electrónicos, fechas de nacimiento, género, ocupación y preferencias de contacto (correo, teléfono, correo electrónico).
+
+membresia:
+
+facturacion:
+
+historial
+
+entrenador
+
+reserva de clases
+
+inventario de equipo
+
+registro de mantenimiento
+
+
