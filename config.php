@@ -1,36 +1,20 @@
 <?php
+$host = 'localhost';
+$dbname = 'gloriusgym_sv';
+$user = 'root';
+$password = '';
 
-class connection{
-
-
-private $server = "mysql:host=localhost;dbname=gloriusgym_sv";
-private $username = "root";
-private $password = "";
-private $options  = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,);
-protected $pdo;
-
-public function open(){
-    try {
-        $this->pdo = new PDO($this->server, $this->username, $this->password, $this->options);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $this->pdo;
-    } catch (PDOException $e) {
-        die ("error de conexion: " . $e->getMessage());
-    }
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+} catch (PDOException $e) {
+    die('Error de conexión: ' . $e->getMessage());
 }
 
-public function close(){
-    $this->pdo = null;
+$status = $pdo->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+if ($status === false) {
+    die('Error de conexión');
 }
-
-
-}
-
-
-
-
-
-
-
-
 ?>
+
+
+
