@@ -22,6 +22,33 @@ include('../Includes/loginCheck.php'); ?>
     <div class="container-fluid">
         <div class="row">
 
+            <div class="container col-2">
+                <p class="text-center fs-2 w-light">Miembros</p>
+                <div class="row">
+                    <div class="row row-cols-1 row-cols-md-1 g-2">
+                        <div class="col">
+                            <div class="card">
+                                <img src="img/mascotaP.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nuevo Miembro</h5>
+                                    <p class="card-text">Ingresa rapido un nuevo Miembro.</p>
+                                    <a href="mascotas.php" class="btn btn-primary">Agregar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="img/dueñosP.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Consulta de Membresias</h5>
+                                    <p class="card-text">Listado de miembros activos con membresias vigentes.</p>
+                                    <a href="clientes.php" class="btn btn-primary">Acceder</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="container col-9">
                 <div class="w-100 my-1">
                     <div class="container">
@@ -139,33 +166,7 @@ include('../Includes/loginCheck.php'); ?>
 
 
             </div>
-            <div class="container col-2">
-                <p class="text-center fs-2 w-light">Consultas</p>
-                <div class="row">
-                    <div class="row row-cols-1 row-cols-md-1 g-2">
-                        <div class="col">
-                            <div class="card">
-                                <img src="img/mascotaP.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Consulta Rapida</h5>
-                                    <p class="card-text">Accede al listado de Mascotas.</p>
-                                    <a href="mascotas.php" class="btn btn-primary">Acceder</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <img src="img/dueñosP.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Consulta Completa</h5>
-                                    <p class="card-text">Accede a todo el listado de Dueños.</p>
-                                    <a href="clientes.php" class="btn btn-primary">Acceder</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
     <?php include('../Includes/footer.php') ?>

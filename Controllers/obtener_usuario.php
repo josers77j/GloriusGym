@@ -8,11 +8,7 @@ if (!isset($_GET['id'])) {
 $idUsuario = $_GET['id'];
 
 // Preparar la consulta SQL para obtener los datos de la mascota
-$consulta = $pdo->prepare('SELECT * FROM tbl_usuarios WHERE id = :id');
-
-// Asignar el valor del parámetro :id_mascota
-$consulta->bindParam(':id', $idUsuario, PDO::PARAM_INT);
-
+$consulta = $pdo->prepare("call obtenerUsuariosEdit(".$idUsuario.")");
 // Ejecutar la consulta
 $consulta->execute();
 

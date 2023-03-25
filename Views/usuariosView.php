@@ -36,9 +36,10 @@ include('../Includes/loginCheck.php'); ?>
                             </div>
                         </div>
                         <div class="container col-2 m-2">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario('guardarUsuario'); ">
                                 Nuevo Usuario
                             </button>
+                        
                         </div>
                     </div>
                 </div>
@@ -69,7 +70,9 @@ include('../Includes/loginCheck.php'); ?>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/usuarios.js"></script>
-    
+    <script>
+     
+    </script>
     <?php include("../Includes/footer.php"); ?>
 
 </body>
