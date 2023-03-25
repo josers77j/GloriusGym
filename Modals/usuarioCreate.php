@@ -1,10 +1,16 @@
 <?php
 include('../config.php');
-$query = $pdo->prepare("call obtenerRol()");
+$query = $pdo->prepare("call obtenerRoles()");
 $query->execute();
 $query = $query->fetchAll();
+
+$query2 = $pdo->prepare("call obtenerEmpleados()");
+$query2->execute();
+$query2 = $query2->fetchAll();
 ?>
 
+<!-- pdo::fetchAssoc  -->
+<!-- pdo::fetchobj -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -41,7 +47,7 @@ $query = $query->fetchAll();
                   <?php
                   foreach ($query as $key) :
                   ?>
-                    <option value="<?php echo $key['id']; ?>"><?php echo $key['Rol']; ?></option>
+                    <option value="<?php echo $key['id']; ?>"><?php echo $key['nombre']; ?></option>
                   <?php endforeach; ?>
                 </select>
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-lines-fill"></i></span>
@@ -54,25 +60,20 @@ $query = $query->fetchAll();
                 <select class="form-control" id="id_empleados" name="id_empleados">
                   <option selected value="2">Seleccionar Empleado</option>
                   <?php
-                  foreach ($query as $key) :
+                  foreach ($query2 as $key) :
                   ?>
-                    <option value="<?php echo $key['id_empleados']; ?>"><?php echo $key['nombre']; ?></option>
+                    <option value="<?php echo $key['id']; ?>"><?php echo $key['nombre']; ?></option>
                   <?php endforeach; ?>
                 </select>
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-lines-fill"></i></span>
               </div>
             </div>
             <div class="form-group">
-              <label for="id_roles">Estado del empleado:</label>
+              <label for="id_roles">Estado del usuario:</label>
               <div class="input-group mb-3">
-              <select class="form-control" id="id_status" name="id_status">
-                <?php
-                foreach ($query as $key) :
-                ?>
-                  <option value="<?php echo $key['id_status']; ?>"> Estado Actual : <?php echo $key['status']; ?></option>
-                <?php endforeach; ?>
+              <select class="form-control" id="id_status" name="id_status">               
                 <option value="1">Activo</option>
-                <option value="2">Inactivo</option>
+                <option value="0">Inactivo</option>
               </select>
               <span class="input-group-text" id="basic-addon1"><i class="bi bi-toggles"></i></span>
               </div>
@@ -81,7 +82,7 @@ $query = $query->fetchAll();
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelarEdicion()">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Close</button>
         <button type="submit" class="btn btn-success" id="guardar" <?= isset($idUsuario) ? " onclick='funcionEditar()'" : ""  ?>>Save changes</button>
       </div>
     </div>

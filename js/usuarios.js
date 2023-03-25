@@ -10,27 +10,26 @@ $(document).ready(function () {
   });
 });
 
-
 $('#nuevo').click(function () {
-
+$.ajax({}).abort();
   //$("button[type=submit]").prop("id") = 'guardar2';
   $("#editar").off("click");
   $("button[type=submit]").attr("id", "guardar");
-  
+  $("#guardar").off("click");
+
+  $("#guardar").click(function () {
+    nuevoUsuario();    
+  });
 })
 
-$("#guardar").click(function () {
-    
-  //guardarusuario();
-  alert("intentando guardar");
-  gestionar_usuario('');
-  limpiarFormulario();
-});
+
 
 function limpiarFormulario() {
   $("#form_usuarios")[0].reset();
   $("button[type='submit']").text("Guardar");
   $("#form_usuario").removeAttr("data-id");
+
+
 
 }
 function cargarDatos(buscar) {
@@ -55,27 +54,24 @@ function cargarDatos(buscar) {
         tr.append("<td>" + usuario.status + "</td>");
         tr.append("<td><ul class='list-inline m-0'><li class='list-inline-item'> <button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-info editar-usuario' data-id='" +
           usuario.id +
-          "'><i class='bi bi-pencil-square'></i></button> </li><li class='list-inline-item'> <button class='btn btn-danger eliminar-usuario' data-id='" +
+          "'><i class='bi bi-pencil-square'></i></button> </li><li class='list-inline-item'><button class='btn btn-danger eliminar-usuario' data-id='" +
           usuario.id +
           "'><i class='bi bi-trash2'></i></button> </li></ul></td>");
 
         tbody.append(tr);
       });
       // Asignar el evento de click al botón de edición
-      
+
       $(".editar-usuario").click(function () {
         var idUsuario = $(this).data("id");
         $("#guardar").off("click");
         $("button[type=submit]").attr("id", "editar")
-
+        $("#editar").off("click");
 
         $("#editar").click(function () {
-          event.preventDefault();
-          //guardarusuario();
-          alert("intentando editarrr");
-          gestionar_usuario(idUsuario);
+          
+          editarUsuario(idUsuario);
         });
-                
         var idUsuario = $(this).data("id");
         //************************************************************************************** */
         // Hacer la petición AJAX para obtener los datos de la usuario a editar
@@ -90,7 +86,7 @@ function cargarDatos(buscar) {
             $("#password").val(usuario.password);
             $("#id_roles").val(usuario.id_roles);
             $("#id_empleados").val(usuario.id_empleados);
-            $("#status").val(usuario.id_status);
+            $("#id_status").val(usuario.status);
 
             // Cambiar el texto del botón de submit para indicar que se está editando
             $("button[type='submit']").text("Editar");
@@ -110,19 +106,40 @@ function cargarDatos(buscar) {
       $(".eliminar-usuario").click(function () {
         var idUsuario = $(this).data("id");
 
+        Swal.fire({
+          title: '¿Estas seguro?',
+          text: "No hay vuelta atras despues de esta accion!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, Eliminar!',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: "../Controllers/eliminar_usuario.php?id=" + idUsuario,
+              type: "GET",
+              success: function () {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Usuario Eliminado',
+                  text: 'Satisfactoriamente!'
+                })
+                // Recargar la tabla de usuarios para mostrar los cambios
+                cargarDatos("");
+                $("#cerrarModal").click();
+              },
+              error: function () {
+                alert("Error al eliminar el usuario");
+              },
+            });
+          }
+        })
+
+        
         // Hacer la petición AJAX para eliminar el registro
-        $.ajax({
-          url: "ajax/eliminar_usuario.php?id=" + idUsuario,
-          type: "GET",
-          success: function () {
-            alert("Usuario eliminado exitosamente");
-            // Recargar la tabla de usuarios para mostrar los cambios
-            cargarDatos("");
-          },
-          error: function () {
-            alert("Error al eliminar el usuario");
-          },
-        });
+        
       });
     },
     error: function () {
@@ -132,20 +149,17 @@ function cargarDatos(buscar) {
 }
 
 
-function gestionar_usuario(id) {
- 
-
+function nuevoUsuario() {
   var datos = $("#form_usuarios").serialize(); // serializa los datos del formulario
-  console.log(id);
-  console.log($("#form_usuarios").serialize());
+  console.log(datos);
   $.ajax({
-    url: "../Controllers/gestionar_usuario.php?id=" + id, // archivo PHP para procesar los datos
+    url: "../Controllers/insertar_usuario.php", // archivo PHP para procesar los datos
     type: "GET",
     data: datos,
     success: function (response) {
       alert("usuario guardado exitosamente");
       $("#form_usuarios")[0].reset();
-
+      $("#cerrarModal").click();
       // hacer algo en respuesta exitosa del servidor
       cargarDatos("");
     },
@@ -155,3 +169,28 @@ function gestionar_usuario(id) {
     },
   });
 }
+
+
+function editarUsuario(idUsuario) {
+
+
+  var datos =$("#form_usuarios").serialize() ; // serializa los datos del formulario
+  console.log(datos);
+  $.ajax({
+    url: "../Controllers/actualizar_usuario.php?id=" + idUsuario, // archivo PHP para procesar los datos
+    type: "GET",
+    data: datos,
+    success: function (response) {
+      alert("usuario editado exitosamente");
+      $("#form_usuarios")[0].reset();
+      $("#cerrarModal").click();
+      // hacer algo en respuesta exitosa del servidor
+      cargarDatos("");
+    },
+    error: function (xhr, status, error) {
+      alert("Error al guardar la usuario");
+      // manejar el error del servidor
+    },
+  });
+}
+
