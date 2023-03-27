@@ -60,7 +60,11 @@ if (!empty($username)) {
       </li>
       <li>
         <a href="../Views/usuariosView.php" class="nav-link px-0 align-middle text-secondary <?=$permiso?>">
-          <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span> </a>
+          <i class="fs-3 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span> </a>
+      </li>
+      <li>
+        <a href="../Views/empleadosView.php" class="nav-link px-0 align-middle text-secondary <?=$permiso?>">
+        <i class="fs-3 bi bi-person-vcard"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span> </a>
       </li>
 
      

@@ -4,7 +4,7 @@ $query = $pdo->prepare("call obtenerRoles()");
 $query->execute();
 $query = $query->fetchAll();
 
-$query2 = $pdo->prepare("call obtenerEmpleadosU()");
+$query2 = $pdo->prepare("call obtenerEmpleados()");
 $query2->execute();
 $query2 = $query2->fetchAll();
 ?>
@@ -43,7 +43,7 @@ $query2 = $query2->fetchAll();
               <label for="id_roles">Rol:</label>
               <div class="input-group mb-3">
                 <select class="form-control" id="id_roles" name="id_roles">
-                  <option selected value="id_roles">Seleccionar Rol</option>
+                  <option selected value="2">Seleccionar Rol</option>
                   <?php
                   foreach ($query as $key) :
                   ?>
@@ -58,7 +58,7 @@ $query2 = $query2->fetchAll();
               <label for="id_roles">Empleado:</label>
               <div class="input-group mb-3">
                 <select class="form-control" id="id_empleados" name="id_empleados">
-                  <option selected value="id_empleados">Seleccionar Empleado</option>
+                  <option selected value="2">Seleccionar Empleado</option>
                   <?php
                   foreach ($query2 as $key) :
                   ?>

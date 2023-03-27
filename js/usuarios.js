@@ -28,10 +28,30 @@ function limpiarFormulario() {
   $("#form_usuarios")[0].reset();
   $("button[type='submit']").text("Guardar");
   $("#form_usuario").removeAttr("data-id");
-
-
-
 }
+
+function obtenerEtiqueta(status) {
+  if (status == 'inactivo') {
+    return '<span class="badge bg-dark">inactivo</span>';
+  } else if (status == 'activo') {
+    return '<span class="badge bg-success">activo</span>';
+  } else {
+    return '';
+  }
+}
+
+$(document).on("click", ".ver-password", function () {
+  var passwordText = $(this).prev(".password-text");
+  if (passwordText.hasClass("oculto")) {
+    passwordText.text(passwordText.data("password"));
+    passwordText.removeClass("oculto");
+  } else {
+    passwordText.text("********");
+    passwordText.addClass("oculto");
+  }
+});
+
+
 function cargarDatos(buscar) {
   // Hacer la petición AJAX
   $.ajax({
@@ -46,12 +66,15 @@ function cargarDatos(buscar) {
 
       // Agregar los datos a la tabla
       $.each(resultados, function (index, usuario) {
+        //obtengo los badges
+        var status = obtenerEtiqueta(usuario.status);
+
         var tr = $("<tr>");
         tr.append("<td>" + usuario.usuario + "</td>");
-        tr.append("<td>" + usuario.password + "</td>");
+        tr.append("<td><div class ='container'><span style=' padding:15px;' class='password-text oculto' margin='4px' data-password='" + usuario.password + "'>********</span><button class='btn btn-outline-dark ver-password'><i class='bi bi-eye-slash'></i></button> </div></td>");
         tr.append("<td>" + usuario.nombre_rol + "</td>");
         tr.append("<td>" + usuario.nombre_empleado + "</td>");
-        tr.append("<td>" + usuario.status + "</td>");
+        tr.append("<td>" + status + "</td>");
         tr.append("<td><ul class='list-inline m-0'><li class='list-inline-item'> <button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-info editar-usuario' data-id='" +
           usuario.id +
           "'><i class='bi bi-pencil-square'></i></button> </li><li class='list-inline-item'><button class='btn btn-danger eliminar-usuario' data-id='" +
@@ -81,7 +104,7 @@ function cargarDatos(buscar) {
           dataType: "json",
           success: function (usuario) {
             // Llenar los campos del formulario con los datos de la usuario a editar
-            console.log(usuario);
+            
             $("#nombre").val(usuario.usuario);
             $("#password").val(usuario.password);
             $("#id_roles").val(usuario.id_roles);
@@ -157,7 +180,12 @@ function nuevoUsuario() {
     type: "GET",
     data: datos,
     success: function (response) {
-      alert("usuario guardado exitosamente");
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuario Insertado Satisfactoriamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
       $("#form_usuarios")[0].reset();
       $("#cerrarModal").click();
       // hacer algo en respuesta exitosa del servidor
@@ -181,7 +209,12 @@ function editarUsuario(idUsuario) {
     type: "GET",
     data: datos,
     success: function (response) {
-      alert("usuario editado exitosamente");
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuario Modificado Satisfactoriamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
       $("#form_usuarios")[0].reset();
       $("#cerrarModal").click();
       // hacer algo en respuesta exitosa del servidor

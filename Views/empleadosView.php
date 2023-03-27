@@ -2,7 +2,7 @@
 include('../config.php');
 include('../Includes/header.php');
 include('../Includes/loginCheck.php'); ?>
-<title>Usuarios</title>
+<title>empleados</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@ include('../Includes/loginCheck.php'); ?>
             <div class="col-4">
 
                 <?php
-                include("../Modals/usuarioCreate.php");
+                include("../Modals/empleadoCreate.php");
                 ?>
             </div>
             <div class="container-fluid">
@@ -32,12 +32,12 @@ include('../Includes/loginCheck.php'); ?>
                         <div class="container col-9 my-2">
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" id="busqueda-usuarios" placeholder="Buscar Usuario..." aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" id="busqueda-empleados" placeholder="Buscar empleado..." aria-label="Username" aria-describedby="basic-addon1">
                             </div>
                         </div>
                         <div class="container col-2 m-2">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario('guardarUsuario'); ">
-                                Nuevo Usuario
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario('guardarempleado'); ">
+                                Nuevo empleado
                             </button>
                         
                         </div>
@@ -45,15 +45,17 @@ include('../Includes/loginCheck.php'); ?>
                 </div>
 
                 <div class="container-fluid bg-light p-3 shadow p-3 mb-5 bg-body rounded">
-                    <table id="tabla-usuarios" class="table table-striped">
+                    <table id="tabla-empleados" class="table table-striped">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Contraseña</th>
-                                <th scope="col">Rol</th>
-                                <th scope="col">Empleado</th>
-                                <th scope="col">Status</th>
-                                <th scope="col" colspan="2">Acciones</th>
+                            <th scope="col">Nombre</th>
+                                <th scope="col">Direccion</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Fecha de Nacimiento</th>
+                                <th scope="col">Salario</th>                                
+                                <th scope="col">Fecha de registro</th>
+                                <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +63,21 @@ include('../Includes/loginCheck.php'); ?>
                         </tbody>
                         
                     </table>
-                    
+                    <nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link">2</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
                 </div>
 
             </div>
@@ -70,11 +86,10 @@ include('../Includes/loginCheck.php'); ?>
         </div>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <?php include("../Includes/footer.php"); ?>
-    <script src="../js/usuarios.js"></script>
- 
+    <script src="../js/empleados.js"></script>
+   
+  
 </body>
 
 </html>
