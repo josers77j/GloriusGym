@@ -133,8 +133,9 @@ function cargarDatos(buscar) {
               success: function () {
                 Swal.fire({
                   icon: 'success',
-                  title: 'Empleado Eliminado',
-                  text: 'Satisfactoriamente!'
+                  title: 'Empleado Eliminado Correctamente',
+                  showConfirmButton: false,
+                  timer: 1500
                 })
                 // Recargar la tabla de empleados para mostrar los cambios
                 cargarDatos("");
