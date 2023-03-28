@@ -16,7 +16,7 @@ include('../Includes/saludo.php');
             include("../Modals/empleadoCreate.php");
             ?>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid ">
             <div class="container-fluid bg-light shadow p-2 mb-3 bg-body rounded">
                 <div class="row">
                     <div class="container col-9 my-2">
@@ -27,16 +27,17 @@ include('../Includes/saludo.php');
                     </div>
                     <div class="container col-2 m-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario('guardarempleado'); ">
-                            Nuevo empleado
+                        <i class="bi bi-plus-circle-fill"> Nuevo Usuario</i>
                         </button>
 
                     </div>
                 </div>
             </div>
 
-            <div class="container-fluid bg-light p-3 shadow p-3 mb-5 bg-body rounded">
-                <table id="tabla-empleados" class="table table-striped">
-                    <thead class="table-dark">
+            <div class="container-fluid bg-light shadow p-0 mb-5 bg-body rounded">
+                <div class="container p-0">
+                <table id="tabla-empleados" class="table table-borderless table-hover">
+                    <thead>
                         <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Direccion</th>
@@ -53,6 +54,8 @@ include('../Includes/saludo.php');
                     </tbody>
 
                 </table>
+                </div>
+                <div class="container p-3">
                 <nav aria-label="...">
                     <ul class="pagination">
                         <li class="page-item disabled">
@@ -68,6 +71,7 @@ include('../Includes/saludo.php');
                         </li>
                     </ul>
                 </nav>
+                </div>
             </div>
 
         </div>

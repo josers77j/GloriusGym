@@ -37,7 +37,7 @@ include('../Includes/loginCheck.php'); ?>
                 </div>
 
                 <div class="container-fluid bg-light p-3 shadow p-3 mb-5 bg-body rounded">
-                    <table id="tabla-usuarios" class="table table-striped">
+                    <table id="tabla-usuarios" class="table table-striped table-hover">
                         <thead class="table-dark">
                             <tr>
                                 <th scope="col">Usuario</th>
