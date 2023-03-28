@@ -5,11 +5,11 @@ include('../config.php');
    $id_rol = $_GET['id_roles'];
    $id_empl = $_GET['id_empleados'];
    $stat = $_GET['id_status'];
-   
+   $hash = password_hash($pass, PASSWORD_BCRYPT);
    $stmt = $pdo->prepare('INSERT INTO tbl_usuarios (usuario, password, id_roles, id_empleados, status) VALUES (:nombre, :pass, :id_rol, :id_empl, :status)');
    if ($stmt->execute(array(
        ':nombre' => $nombre,
-       ':pass' => $pass,
+       ':pass' => $hash,
        ':id_rol' => $id_rol,
        ':id_empl' => $id_empl,
        ':status' => $stat

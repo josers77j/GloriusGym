@@ -10,6 +10,8 @@ $(document).ready(function () {
   });
 });
 
+
+
 $('#nuevo').click(function () {
 $.ajax({}).abort();
   //$("button[type=submit]").prop("id") = 'guardar2';
@@ -75,11 +77,16 @@ function cargarDatos(buscar) {
         tr.append("<td>" + usuario.nombre_rol + "</td>");
         tr.append("<td>" + usuario.nombre_empleado + "</td>");
         tr.append("<td>" + status + "</td>");
-        tr.append("<td><ul class='list-inline m-0'><li class='list-inline-item'> <button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-info editar-usuario' data-id='" +
-          usuario.id +
-          "'><i class='bi bi-pencil-square'></i></button> </li><li class='list-inline-item'><button class='btn btn-danger eliminar-usuario' data-id='" +
-          usuario.id +
-          "'><i class='bi bi-trash2'></i></button> </li></ul></td>");
+        tr.append(   "<td>" 
+                   + "<ul class='list-inline m-0'><li class='list-inline-item'>" 
+                   + "<button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-warning editar-usuario' data-id='" + usuario.id +"'> "
+                   + "<i class='bi bi-pencil-square'></i>"
+                   + "</button>" 
+                   + "</li> "
+                   + "<li class='list-inline-item'>"
+                   + "<button class='btn btn-danger eliminar-usuario' data-id='" + usuario.id +"'>"
+                   + "<i class='bi bi-trash2'></i> "
+                   + "</button></li></ul></td>");
 
         tbody.append(tr);
       });

@@ -23,26 +23,24 @@ if (!empty($username)) {
 <div class="container-fluid">
     <div class="row flex-nowrap">
      
-<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-  <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <span class="fs-5 d-none d-sm-inline "><img class=" img-fluid" src="../img/GLORIUS.png" style="width: 250px; height: 100px;" alt=""></span>
-    </a>
+<div class="col-auto col-md-2 col-xl-1 px-sm-2 px-0 bg-dark">
+  <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-3 text-white min-vh-100">
+    
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
       <li class="nav-item">
         <a href="../Views/principalView.php" class="hover-class nav-link px-0 align-middle text-secondary" >
-          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
+          <i class="fs-5 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
         </a>
       </li>
 
       <li>
           <a href="dashboard.php" class="nav-link px-0 align-middle text-secondary" id="my-element">
-          <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
+          <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
       </li>
 
       <li>
         <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light" data-bs-target="#account-collapse1" aria-expanded="false">
-          <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Accciones</span> <i class="bi bi-caret-down-fill"></i></a>
+          <i class="fs-5 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Accciones</span> <i class="bi bi-caret-down-fill"></i></a>
           <div class="collapse show" id="account-collapse1">
         <ul class="btn-toggle-nav list-unstyled pb-1 small" id="submenu3" data-bs-parent="#menu">
           <li class="w-100">

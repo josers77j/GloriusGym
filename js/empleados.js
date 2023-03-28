@@ -60,12 +60,16 @@ function cargarDatos(buscar) {
         tr.append("<td>" + empleado.fecha_nac + "</td>");
         tr.append("<td>" + empleado.salario + "</td>");
         tr.append("<td>" + empleado.fecha_reg + "</td>");
-
-        tr.append("<td><ul class='list-inline m-0'><li class='list-inline-item'> <button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-info editar-empleado' data-id='" +
-          empleado.id +
-          "'><i class='bi bi-pencil-square'></i></button> </li><li class='list-inline-item'><button class='btn btn-danger eliminar-empleado' data-id='" +
-          empleado.id +
-          "'><i class='bi bi-trash2'></i></button> </li></ul></td>");
+        tr.append(   "<td>" 
+                   + "<ul class='list-inline m-0'><li class='list-inline-item'>" 
+                   + "<button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-warning editar-empleado' data-id='" + empleado.id +"'> "
+                   + "<i class='bi bi-pencil-square'></i>"
+                   + "</button>" 
+                   + "</li> "
+                   + "<li class='list-inline-item'>"
+                   + "<button class='btn btn-danger eliminar-empleado' data-id='" + empleado.id +"'>"
+                   + "<i class='bi bi-trash2'></i> "
+                   + "</button></li></ul></td>");
 
         tbody.append(tr);
       });

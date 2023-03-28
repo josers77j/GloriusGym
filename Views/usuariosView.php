@@ -5,19 +5,11 @@ include('../Includes/loginCheck.php'); ?>
 <title>Usuarios</title>
 </head>
 
-<body>
     <?php
+    include('../Includes/menu.php');
     include('../Includes/saludo.php');
-    include('../Includes/menu.php')
     ?>
-    <div class="p-md-3 rounded-end text-bg-dark">
-        <div class="row">
-            <div class="col-md-0">
-                <?= '<h1 class="display-4 fs-2 fst-italic">' . $saludo . '</h1>' ?>
-            </div>
-        </div>
-    </div>
-
+    
     <div class="container"><br>
         <div class="row">
             <div class="col-4">
