@@ -27,7 +27,7 @@ include('../Includes/saludo.php');
                     </div>
                     <div class="container col-2 m-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario('guardarempleado'); ">
-                        <i class="bi bi-plus-circle-fill"> Nuevo Usuario</i>
+                            <i class="bi bi-plus-circle-fill"> Nuevo Usuario</i>
                         </button>
 
                     </div>
@@ -36,41 +36,41 @@ include('../Includes/saludo.php');
 
             <div class="container-fluid bg-light shadow p-0 mb-5 bg-body rounded">
                 <div class="container mt-3 p-0">
-                <table id="tabla-empleados" class="table table-borderless table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Direccion</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Fecha de Nacimiento</th>
-                            <th scope="col">Salario</th>
-                            <th scope="col">Fecha de registro</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- aquí se llenarán los datos de la consulta -->
-                    </tbody>
+                    <table id="tabla-empleados" class="table table-borderless  text-center table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Direccion</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Fecha de Nacimiento</th>
+                                <th scope="col">Salario</th>
+                                <th scope="col">Fecha de registro</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- aquí se llenarán los datos de la consulta -->
+                        </tbody>
 
-                </table>
+                    </table>
                 </div>
                 <div class="container p-3">
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active" aria-current="page">
-                            <span class="page-link">2</span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <span class="page-link">Previous</span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">2</span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
 
