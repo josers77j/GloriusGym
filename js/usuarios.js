@@ -73,7 +73,6 @@ function cargarDatos(buscar) {
 
         var tr = $("<tr>");
         tr.append("<td>" + usuario.usuario + "</td>");
-        tr.append("<td><div class ='container'><span style=' padding:15px;' class='password-text oculto' margin='4px' data-password='" + usuario.password + "'>********</span><button class='btn btn-outline-dark ver-password'><i class='bi bi-eye-slash'></i></button> </div></td>");
         tr.append("<td>" + usuario.nombre_rol + "</td>");
         tr.append("<td>" + usuario.nombre_empleado + "</td>");
         tr.append("<td>" + status + "</td>");
@@ -113,7 +112,6 @@ function cargarDatos(buscar) {
             // Llenar los campos del formulario con los datos de la usuario a editar
             
             $("#nombre").val(usuario.usuario);
-            $("#password").val(usuario.password);
             $("#id_roles").val(usuario.id_roles);
             $("#id_empleados").val(usuario.id_empleados);
             $("#id_status").val(usuario.status);

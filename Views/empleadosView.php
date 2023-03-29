@@ -35,7 +35,7 @@ include('../Includes/saludo.php');
             </div>
 
             <div class="container-fluid bg-light shadow p-0 mb-5 bg-body rounded">
-                <div class="container p-0">
+                <div class="container mt-3 p-0">
                 <table id="tabla-empleados" class="table table-borderless table-hover">
                     <thead>
                         <tr>

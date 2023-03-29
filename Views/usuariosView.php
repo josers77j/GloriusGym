@@ -41,7 +41,6 @@ include('../Includes/loginCheck.php'); ?>
                         <thead class="table-dark">
                             <tr>
                                 <th scope="col">Usuario</th>
-                                <th scope="col">Contraseña</th>
                                 <th scope="col">Rol</th>
                                 <th scope="col">Empleado</th>
                                 <th scope="col">Status</th>
@@ -55,7 +54,14 @@ include('../Includes/loginCheck.php'); ?>
                     </table>
                     
                 </div>
-
+<div class="container">
+<div class="card border-dark mb-3" style="max-width: 18rem;">
+  <div class="card-header">Nota</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">Importante</h5>
+    <p class="card-text">Al editar un usuario, no es necesario rellenar el campo de "Contraseña" en caso de el administrador requiera realizar un cambio dentro del registro y difiera del cambio de contraseña de un usuario cualquiera, este puede omitirse "dejar en blanco", y continuar con los cambios que desea realizar.</p>
+  </div>
+</div>
             </div>
 
 
