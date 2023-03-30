@@ -89,9 +89,7 @@ include('../Includes/saludo.php');
 
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+</div>
     <?php include("../Includes/footer.php"); ?>
     <script src="../js/usuarios.js"></script>
 
