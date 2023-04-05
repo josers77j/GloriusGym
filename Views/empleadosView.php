@@ -41,7 +41,7 @@ include('../Includes/saludo.php');
                             <input type="text" class="form-control" id="busqueda-empleados" placeholder="Buscar empleado..." aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
-                    <div class="col-auto my-2">
+                    <div class="col-auto col-md4 my-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario('guardarempleado'); ">
                             <i class="bi bi-plus-circle-fill"> Nuevo Usuario</i>
                         </button>
@@ -52,7 +52,10 @@ include('../Includes/saludo.php');
 
             <div class="container-fluid bg-light shadow p-0 mb-5 bg-body rounded">
                 <div class="container mt-3 p-0">
-                    <table id="tabla-empleados" class="table table-borderless  text-center table-hover">
+<div class="table-responsive">
+
+
+                <table id="tabla-empleados" class="table table-borderless  text-center table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Nombre</th>
@@ -70,6 +73,7 @@ include('../Includes/saludo.php');
                         </tbody>
 
                     </table>
+                    </div>
                 </div>
                 <div class="container p-3">
                     <nav aria-label="Page navigation example">

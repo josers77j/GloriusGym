@@ -20,4 +20,3 @@ try {
 } catch (PDOException $e) {
     echo "Error al eliminar al empleado: " . $e->getMessage();
 }
-?>

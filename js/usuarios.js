@@ -19,7 +19,8 @@ $.ajax({}).abort();
   $("button[type=submit]").attr("id", "guardar");
   $("#guardar").off("click");
 
-  $("#guardar").click(function () {
+  $("#guardar").click(function (event) {
+    event.preventDefault(); 
     nuevoUsuario();    
   });
 })
@@ -41,17 +42,6 @@ function obtenerEtiqueta(status) {
     return '';
   }
 }
-
-$(document).on("click", ".ver-password", function () {
-  var passwordText = $(this).prev(".password-text");
-  if (passwordText.hasClass("oculto")) {
-    passwordText.text(passwordText.data("password"));
-    passwordText.removeClass("oculto");
-  } else {
-    passwordText.text("********");
-    passwordText.addClass("oculto");
-  }
-});
 
 
 function cargarDatos(buscar) {
@@ -97,8 +87,8 @@ function cargarDatos(buscar) {
         $("button[type=submit]").attr("id", "editar")
         $("#editar").off("click");
 
-        $("#editar").click(function () {
-          
+        $("#editar").click(function (event) {
+          event.preventDefault(); 
           editarUsuario(idUsuario);
         });
         var idUsuario = $(this).data("id");
@@ -179,7 +169,6 @@ function cargarDatos(buscar) {
 
 function nuevoUsuario() {
   var datos = $("#form_usuarios").serialize(); // serializa los datos del formulario
-  console.log(datos);
   $.ajax({
     url: "../Controllers/insertar_usuario.php", // archivo PHP para procesar los datos
     type: "GET",

@@ -21,71 +21,82 @@ if (!empty($username)) {
 ?>
 
 <div class="container-fluid">
-    <div class="row flex-nowrap">
-     
-<div class="col-auto col-md-2 col-xl-1 px-sm-2 px-0 bg-dark">
-  <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-3 text-white min-vh-100">
-    
-    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-      <li class="nav-item">
-        <a href="../Views/principalView.php" class="hover-class nav-link px-0 align-middle text-secondary" >
-          <i class="fs-5 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
-        </a>
-      </li>
+  <div class="row flex-nowrap">
 
-      <li>
-          <a href="dashboard.php" class="nav-link px-0 align-middle text-secondary" id="my-element">
-          <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
-      </li>
+    <div class="col-auto col-md-2 col-xl-1 px-sm-2 px-0 bg-dark">
+      <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-3 text-white min-vh-100">
 
-      <li>
-        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light" data-bs-target="#account-collapse1" aria-expanded="false">
-          <i class="fs-5 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Accciones</span> <i class="bi bi-caret-down-fill"></i></a>
-          <div class="collapse show" id="account-collapse1">
-        <ul class="btn-toggle-nav list-unstyled pb-1 small" id="submenu3" data-bs-parent="#menu">
-          <li class="w-100">
-            <a href="mascotas.php" class="nav-link px-0 aProperties text-secondary" id="my-element">
-              <i class="fa-solid fa-paw "></i><span class="d-none d-sm-inline">Miembros</span> </a>
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+          <li class="nav-item">
+            <a href="../Views/principalView.php" class="hover-class nav-link px-0 align-middle text-warning">
+              <i class="fs-5 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
+            </a>
           </li>
+
           <li>
-            <a href="clientes.php" class="nav-link px-0 text-secondary" id="my-element"><i class="bi bi-person"></i> <span class="d-none d-sm-inline">Dueños</span></a>
+            <a href="dashboard.php" class="nav-link px-0 align-middle text-warning" id="my-element">
+              <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
           </li>
+
           <li>
-            <a href="consultas.php" class="nav-link px-0 text-secondary"><i class="bi bi-journal"></i> <span class="d-none d-sm-inline">Consultas</span></a>
+            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-warning" data-bs-target="#account-collapse1" aria-expanded="false">
+            <i class="bi bi-list"></i><span class="ms-1 d-none d-sm-inline">Accciones</span> </a>
+            <div class="collapse show" id="account-collapse1">
+              <ul class="btn-toggle-nav list-unstyled pb-1 small" id="submenu3" data-bs-parent="#menu">
+                <li class="w-100">
+                  <a href="mascotas.php" class="nav-link px-0 aProperties text-secondary" id="my-element">
+                  <i class="bi bi-person-badge"></i><span class="d-none d-sm-inline"> Miembros</span> </a>
+                </li>
+                <li>
+                  <a href="clientes.php" class="nav-link px-0 text-secondary" id="my-element"><i class="bi bi-card-checklist"></i><span class="d-none d-sm-inline"> Membresias</span></a>
+                </li>
+                <li>
+                  <a href="consultas.php" class="nav-link px-0 text-secondary"><i class="bi bi-journal"></i> <span class="d-none d-sm-inline">Asistencias</span></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li>
+            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-warning <?= $permiso ?>" data-bs-target="#account-collapse2" aria-expanded="false">
+            <i class="bi bi-menu-app"></i><span class="ms-1 d-none d-sm-inline">Administrar</span></a>
+            <div class="collapse show" id="account-collapse2">
+              <ul class="btn-toggle-nav list-unstyled pb-1 small" id="submenu3" data-bs-parent="#menu">
+
+                <li class="w-100">
+                  <a href="../Views/usuariosView.php" class="nav-link px-0 aProperties text-secondary <?= $permiso ?>">
+                    <i class="bi-people"></i> <span class="d-none d-sm-inline"> Usuarios</span> </a>
+                </li>
+                <li class="w-100">
+                  <a href="../Views/empleadosView.php" class="nav-link px-0 aProperties text-secondary <?= $permiso ?>">
+                    <i class="bi bi-person-vcard"></i><span class="d-none d-sm-inline"> Empleados</span> </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+
+
+          <li class="border-top my-3"></li>
+          <li class="mb-1">
+            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-warning" data-bs-target="#account-collapse" aria-expanded="false">
+              <i class="bi bi-person-circle"></i> <span class="ms-1 d-none d-sm-inline"><?= $username ?></span></a>
+            </button>
+            <div class="collapse show" id="account-collapse">
+              <ul class="btn-toggle-nav list-unstyled pb-1 small">
+
+                <li>
+                  <a href="configuraciones.php" class="nav-link px-0 text-secondary"><i class="bi bi-person-gear"></i> <span class="d-none d-sm-inline ">Configuraciones</span></a>
+                </li>
+                <li>
+                  <a href="../Includes/logout.php" class="nav-link px-0 text-secondary"><i class="bi bi-box-arrow-left"></i> <span class="d-none d-sm-inline">Cerrar Sesion</span></a>
+                </li>
+              </ul>
+            </div>
           </li>
         </ul>
-          </div>
-      </li>
-      <li>
-        <a href="../Views/usuariosView.php" class="nav-link px-0 align-middle text-secondary <?=$permiso?>">
-          <i class="fs-3 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span> </a>
-      </li>
-      <li>
-        <a href="../Views/empleadosView.php" class="nav-link px-0 align-middle text-secondary <?=$permiso?>">
-        <i class="fs-3 bi bi-person-vcard"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span> </a>
-      </li>
 
-     
-      <li class="border-top my-3"></li>
-      <li class="mb-1">
-      <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle" data-bs-target="#account-collapse" aria-expanded="false">
-          <i class="bi bi-person-circle text-white"></i> <span class="ms-1 d-none d-sm-inline text-white"><?=$username?></span> <i class="bi bi-caret-down-fill text-white"></i></a>
-        </button>
-        <div class="collapse show" id="account-collapse">
-          <ul class="btn-toggle-nav list-unstyled pb-1 small">
-           
-            <li>
-              <a href="configuraciones.php" class="nav-link px-0 text-secondary"><i class="bi bi-person-gear"></i> <span class="d-none d-sm-inline ">Configuraciones</span></a>
-            </li>
-            <li>
-              <a href="../Includes/logout.php" class="nav-link px-0 text-secondary"><i class="bi bi-box-arrow-left"></i> <span class="d-none d-sm-inline">Cerrar Sesion</span></a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-
-  </div>
-</div>
-<div class="col p-0">
-<script src="../js/menu.js"></script>
+      </div>
+    </div>
+    <div class="col p-0">
+      <script src="../js/menu.js"></script>

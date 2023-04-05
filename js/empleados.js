@@ -23,13 +23,12 @@ $(document).ready(function () {
 
 });
 
-$('#nuevo').click(function () {
+$('#guardar').click(function () {
   $.ajax({}).abort();
-  //$("button[type=submit]").prop("id") = 'guardar2';
   $("#editar").off("click");
   // Obtener la fecha actual en formato YYYY-MM-DD
   var fechaActual = new Date().toISOString().slice(0, 10);
-
+  var numRegistros = $('#num_reg').val();
   // Asignar la fecha actual al valor del input
   document.getElementById("fecha_reg").value = fechaActual;
 
@@ -37,7 +36,7 @@ $('#nuevo').click(function () {
   $("#guardar").off("click");
 
   $("#guardar").click(function () {
-    nuevoEmpleado();
+    nuevoEmpleado(numRegistros);
   });
 })
 
@@ -54,7 +53,6 @@ function limpiarFormulario() {
 function mostrarBotonesPaginacion(registro, pagina) {
   var buscador = $('#busqueda-empleados').val();
   var numRegistros = $('#num_reg').val(); 
-  //cargarDatos(buscador,numRegistros,paginaActual)
   var numPaginas = Math.ceil(registro / numRegistros);
   var paginaActual = pagina;
   var paginador = $("#paginador");
@@ -62,28 +60,80 @@ function mostrarBotonesPaginacion(registro, pagina) {
   // Limpiar el contenedor de botones de paginación
   paginador.empty();
 
-// Agregar los botones de paginación
-for (var i = 1; i <= numPaginas; i++) {
-  var boton = $("<button>").addClass("btn btn-sm btn-outline-primary mx-1").text(i);
-
-  if (i == paginaActual) {
-    boton.addClass("active");
-  } else {
-    // Agregar el evento click para enviar el número de página
-    boton.click((function (numeroDePagina) {
-      return function () {
-        cargarDatos(buscador, numRegistros, numeroDePagina);
-      }
-    })(i));
+  // Obtener el número de páginas a mostrar y la página inicial a mostrar
+  var numPagesDisplayed = Math.min(5, numPaginas);
+  var startPage = paginaActual;
+  if (paginaActual > 3) {
+    startPage = paginaActual - 2;
+  } else if (numPaginas > numPagesDisplayed) {
+    numPagesDisplayed = Math.min(numPagesDisplayed, 4 + paginaActual);
   }
 
-  paginador.append(boton);
+  // Agregar los enlaces de paginación
+  for (var i = startPage; i < startPage + numPagesDisplayed && i <= numPaginas; i++) {
+    var enlace = $("<a>").addClass("page-link mx-1").text(i).attr("href", "#");
+
+    if (i == paginaActual) {
+      enlace.addClass("active");
+    } else {
+      // Agregar el evento click para enviar el número de página
+      enlace.click((function (numeroDePagina) {
+        return function () {
+          cargarDatos(buscador, numRegistros, numeroDePagina);
+        }
+      })(i));
+    }
+
+    var span = $("<span>").addClass("page-item");
+    span.append(enlace);
+
+    var li = $("<li>").addClass("page-item");
+    li.append(span);
+
+    paginador.append(li);
+  }
+
+  // Agregar el enlace de página anterior si no estamos en la primera página
+  // Agregar el enlace de página anterior si no estamos en la primera página
+if (paginaActual > 1) {
+  var prevLink = $("<a>").addClass("page-link mx-1").html('<i class="bi bi-chevron-left"></i>').attr("href", "#");
+  prevLink.click(function () {
+    cargarDatos(buscador, numRegistros, paginaActual - 1);
+  });
+
+  var span = $("<span>").addClass("page-item");
+  span.append(prevLink);
+
+  var li = $("<li>").addClass("page-item");
+  li.append(span);
+
+  paginador.prepend(li);
+}
+
+// Agregar el enlace de página siguiente si no estamos en la última página
+if (paginaActual < numPaginas) {
+  var nextLink = $("<a>").addClass("page-link mx-1").html('<i class="bi bi-chevron-right"></i>').attr("href", "#");
+  nextLink.click(function () {
+    cargarDatos(buscador, numRegistros, paginaActual + 1);
+  });
+
+  var span = $("<span>").addClass("page-item");
+  span.append(nextLink);
+
+  var li = $("<li>").addClass("page-item");
+  li.append(span);
+
+  paginador.append(li);
 }
 
 }
+
+
+
 
 function cargarDatos(buscar, numRegistros, pagina) {
   // Hacer la petición AJAX
+
   var inicio = (pagina - 1) * numRegistros;
   var limite = numRegistros;
   $.ajax({
@@ -130,13 +180,14 @@ function cargarDatos(buscar, numRegistros, pagina) {
 
       $(".editar-empleado").click(function () {
         var idEmpleado = $(this).data("id");
+        var numRegistros = $('#num_reg').val();
         $("#guardar").off("click");
         $("button[type=submit]").attr("id", "editar")
         $("#editar").off("click");
 
         $("#editar").click(function () {
 
-          editarEmpleado(idEmpleado);
+          editarEmpleado(idEmpleado,numRegistros);
         });
         var idEmpleado = $(this).data("id");
         //************************************************************************************** */
@@ -172,7 +223,7 @@ function cargarDatos(buscar, numRegistros, pagina) {
       // Asignar el evento de click al botón de eliminación
       $(".eliminar-empleado").click(function () {
         var idEmpleado = $(this).data("id");
-
+     
         Swal.fire({
           title: '¿Estas seguro?',
           text: "No hay vuelta atras despues de esta accion!",
@@ -195,7 +246,7 @@ function cargarDatos(buscar, numRegistros, pagina) {
                   timer: 1500
                 })
                 // Recargar la tabla de empleados para mostrar los cambios
-                cargarDatos("");
+                cargarDatos("", numRegistros, 1);
                 $("#cerrarModal").click();
               },
               error: function () {
@@ -217,9 +268,8 @@ function cargarDatos(buscar, numRegistros, pagina) {
 }
 
 
-function nuevoEmpleado() {
+function nuevoEmpleado(numRegistros) {
   var datos = $("#form_empleados").serialize(); // serializa los datos del formulario
-  console.log(datos);
 
   $.ajax({
     url: "../Controllers/insertar_empleado.php", // archivo PHP para procesar los datos
@@ -232,10 +282,13 @@ function nuevoEmpleado() {
         showConfirmButton: false,
         timer: 1500
       })
+      
       $("#form_empleados")[0].reset();
       $("#cerrarModal").click();
+      cargarDatos("", numRegistros, 1);
+
       // hacer algo en respuesta exitosa del servidor
-      cargarDatos("");
+      
     },
     error: function (xhr, status, error) {
       alert("Error al guardar la empleado");
@@ -245,9 +298,9 @@ function nuevoEmpleado() {
 }
 
 
-function editarEmpleado(idEmpleado) {
-
-
+function editarEmpleado(idEmpleado, numRegistros) {
+console.log('entro');
+console.log(idEmpleado + numRegistros);
   var datos = $("#form_empleados").serialize(); // serializa los datos del formulario
 
   $.ajax({
@@ -262,10 +315,12 @@ function editarEmpleado(idEmpleado) {
         showConfirmButton: false,
         timer: 1500
       })
+
       $("#form_empleados")[0].reset();
       $("#cerrarModal").click();
+      cargarDatos("", numRegistros, 1);
+
       // hacer algo en respuesta exitosa del servidor
-      cargarDatos("");
     },
     error: function (xhr, status, error) {
       alert("Error al guardar la empleado");

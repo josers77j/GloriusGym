@@ -18,4 +18,4 @@ include('../config.php');
        echo "<script>alert('Error al registrar al usuario');</script>";
    }
    $conn = null;
-?>
+

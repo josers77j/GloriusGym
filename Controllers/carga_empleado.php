@@ -8,7 +8,8 @@ $buscar = $_GET["buscar"];
 $inicio = $_GET["inicio"];
 
 // Hacer la consulta para obtener los registros correspondientes a la página actual
-$sql = "SELECT * FROM tbl_empleados WHERE nombre LIKE '%".$buscar."%' LIMIT ".$inicio.", ".$limitReg;
+$sql = "SELECT * FROM tbl_empleados WHERE nombre LIKE '%".$buscar."%' ORDER BY nombre ASC LIMIT ".$inicio.", ".$limitReg;
+
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
