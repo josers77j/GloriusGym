@@ -83,7 +83,7 @@ $query2 = $query2->fetchAll();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Close</button>
-        <button type="submit" class="btn btn-success" id="guardar" <?= isset($idUsuario) ? " onclick='funcionEditar()'" : ""  ?>>Save changes</button>
+        <div id="containerbutton"></div>
       </div>
     </div>
   </div>

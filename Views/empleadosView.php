@@ -42,37 +42,36 @@ include('../Includes/saludo.php');
                         </div>
                     </div>
                     <div class="col-auto col-md4 my-2">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario('guardarempleado'); ">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario(); ">
                             <i class="bi bi-plus-circle-fill"> Nuevo Usuario</i>
                         </button>
-
                     </div>
                 </div>
             </div>
 
             <div class="container-fluid bg-light shadow p-0 mb-5 bg-body rounded">
                 <div class="container mt-3 p-0">
-<div class="table-responsive">
+                    <div class="table-responsive">
 
 
-                <table id="tabla-empleados" class="table table-borderless  text-center table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Direccion</th>
-                                <th scope="col">Telefono</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Fecha de Nacimiento</th>
-                                <th scope="col">Salario</th>
-                                <th scope="col">Fecha de registro</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- aquí se llenarán los datos de la consulta -->
-                        </tbody>
+                        <table id="tabla-empleados" class="table table-borderless  text-center table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Fecha de Nacimiento</th>
+                                    <th scope="col">Salario</th>
+                                    <th scope="col">Fecha de registro</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- aquí se llenarán los datos de la consulta -->
+                            </tbody>
 
-                    </table>
+                        </table>
                     </div>
                 </div>
                 <div class="container p-3">

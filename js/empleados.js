@@ -299,8 +299,6 @@ function nuevoEmpleado(numRegistros) {
 
 
 function editarEmpleado(idEmpleado, numRegistros) {
-console.log('entro');
-console.log(idEmpleado + numRegistros);
   var datos = $("#form_empleados").serialize(); // serializa los datos del formulario
 
   $.ajax({

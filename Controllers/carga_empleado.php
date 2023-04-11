@@ -24,7 +24,7 @@ $data = array(
     'resultados' => $resultados,
     'total_registros' => $count[0]['total_registros']
 );
-
+$pdo = null;
 // Devolver los resultados en formato JSON
 header('Content-Type: application/json');
 echo json_encode($data);

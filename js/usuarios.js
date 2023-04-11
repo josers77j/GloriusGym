@@ -1,28 +1,55 @@
 $(document).ready(function () {
-
+  var numRegistros = $('#num_reg').val();
   // Cargar los datos por defecto al cargar la página
-  cargarDatos("");
+  cargarDatos("", numRegistros, 1);
 
   // Asignar el evento de búsqueda al input de búsqueda
   $("#busqueda-usuarios").keyup(function () {
+    var numRegistros = $('#num_reg').val();
     var buscar = $(this).val();
-    cargarDatos(buscar);
+    cargarDatos(buscar, numRegistros, 1);
+  });
+
+  // Asignar el evento de cambio de valor al select
+  $("#num_reg").change(function () {
+    // Obtener el nuevo valor seleccionado
+    var nuevoNumRegistros = $(this).val();
+    var buscador = $('#busqueda-usuarios').val();
+    // Agregar el nuevo valor al URL de la página actual
+    cargarDatos(buscador, nuevoNumRegistros, 1);
   });
 });
 
 
 
-$('#nuevo').click(function () {
-$.ajax({}).abort();
-  //$("button[type=submit]").prop("id") = 'guardar2';
-  $("#editar").off("click");
-  $("button[type=submit]").attr("id", "guardar");
-  $("#guardar").off("click");
+function crearBoton(nombre, id, tokenMascota, numRegistros) {
+  var token = tokenMascota
+  var numReg = numRegistros;
+  // Crear el botón
+  var boton = document.createElement("button");
+  // Establecer el texto y el id del botón
+  boton.textContent = nombre;
+  boton.id = id;
+  // Agregar la clase "btn" y "btn-primary" al botón
+  boton.classList.add("btn", "btn-success");
 
-  $("#guardar").click(function (event) {
-    event.preventDefault(); 
-    nuevoUsuario();    
-  });
+  // Agregar el botón al DOM
+  containerbutton.appendChild(boton);
+  boton.onclick = function () {
+    console.log("Se hizo clic en el botón " + token);
+    if (!token) {
+      nuevoUsuario(numReg);
+    } else {
+
+      editarUsuario(token,numReg);
+    }
+  };
+}
+$('#nuevo').click(function () {
+  document.getElementById("containerbutton").innerHTML = "";
+  var numRegistros = $('#num_reg').val();
+  crearBoton("guardar", "guardar", "", numRegistros);
+
 })
 
 
@@ -32,6 +59,85 @@ function limpiarFormulario() {
   $("button[type='submit']").text("Guardar");
   $("#form_usuario").removeAttr("data-id");
 }
+
+function mostrarBotonesPaginacion(registro, pagina) {
+  var buscador = $('#busqueda-usuarios').val();
+  var numRegistros = $('#num_reg').val();
+  var numPaginas = Math.ceil(registro / numRegistros);
+  var paginaActual = pagina;
+  var paginador = $("#paginador");
+
+  // Limpiar el contenedor de botones de paginación
+  paginador.empty();
+
+  // Obtener el número de páginas a mostrar y la página inicial a mostrar
+  var numPagesDisplayed = Math.min(5, numPaginas);
+  var startPage = paginaActual;
+  if (paginaActual > 3) {
+    startPage = paginaActual - 2;
+  } else if (numPaginas > numPagesDisplayed) {
+    numPagesDisplayed = Math.min(numPagesDisplayed, 4 + paginaActual);
+  }
+
+  // Agregar los enlaces de paginación
+  for (var i = startPage; i < startPage + numPagesDisplayed && i <= numPaginas; i++) {
+    var enlace = $("<a>").addClass("page-link mx-1").text(i).attr("href", "#");
+
+    if (i == paginaActual) {
+      enlace.addClass("active");
+    } else {
+      // Agregar el evento click para enviar el número de página
+      enlace.click((function (numeroDePagina) {
+        return function () {
+          cargarDatos(buscador, numRegistros, numeroDePagina);
+        }
+      })(i));
+    }
+
+    var span = $("<span>").addClass("page-item");
+    span.append(enlace);
+
+    var li = $("<li>").addClass("page-item");
+    li.append(span);
+
+    paginador.append(li);
+  }
+
+  // Agregar el enlace de página anterior si no estamos en la primera página
+  // Agregar el enlace de página anterior si no estamos en la primera página
+  if (paginaActual > 1) {
+    var prevLink = $("<a>").addClass("page-link mx-1").html('<i class="bi bi-chevron-left"></i>').attr("href", "#");
+    prevLink.click(function () {
+      cargarDatos(buscador, numRegistros, paginaActual - 1);
+    });
+
+    var span = $("<span>").addClass("page-item");
+    span.append(prevLink);
+
+    var li = $("<li>").addClass("page-item");
+    li.append(span);
+
+    paginador.prepend(li);
+  }
+
+  // Agregar el enlace de página siguiente si no estamos en la última página
+  if (paginaActual < numPaginas) {
+    var nextLink = $("<a>").addClass("page-link mx-1").html('<i class="bi bi-chevron-right"></i>').attr("href", "#");
+    nextLink.click(function () {
+      cargarDatos(buscador, numRegistros, paginaActual + 1);
+    });
+
+    var span = $("<span>").addClass("page-item");
+    span.append(nextLink);
+
+    var li = $("<li>").addClass("page-item");
+    li.append(span);
+
+    paginador.append(li);
+  }
+
+}
+
 
 function obtenerEtiqueta(status) {
   if (status == 'inactivo') {
@@ -43,21 +149,26 @@ function obtenerEtiqueta(status) {
   }
 }
 
-
-function cargarDatos(buscar) {
+function cargarDatos(buscar, numRegistros, pagina) {
   // Hacer la petición AJAX
+  var inicio = (pagina - 1) * numRegistros;
+  var limite = numRegistros;
   $.ajax({
     url: "../Controllers/carga_usuario.php",
     type: "GET",
     dataType: "json",
-    data: { buscar: buscar },
-    success: function (resultados) {
+    data: {
+      buscar: buscar,
+      num_reg: limite,
+      inicio: inicio
+    },
+    success: function (data) {
       // Limpiar la tabla antes de agregar los datos
       var tbody = $("#tabla-usuarios tbody");
       tbody.empty();
 
       // Agregar los datos a la tabla
-      $.each(resultados, function (index, usuario) {
+      $.each(data.resultados, function (index, usuario) {
         //obtengo los badges
         var status = obtenerEtiqueta(usuario.status);
 
@@ -66,41 +177,37 @@ function cargarDatos(buscar) {
         tr.append("<td>" + usuario.nombre_rol + "</td>");
         tr.append("<td>" + usuario.nombre_empleado + "</td>");
         tr.append("<td>" + status + "</td>");
-        tr.append(   "<td>" 
-                   + "<ul class='list-inline m-0'><li class='list-inline-item'>" 
-                   + "<button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-warning editar-usuario' data-id='" + usuario.id +"'> "
-                   + "<i class='bi bi-pencil-square'></i>"
-                   + "</button>" 
-                   + "</li> "
-                   + "<li class='list-inline-item'>"
-                   + "<button class='btn btn-danger eliminar-usuario' data-id='" + usuario.id +"'>"
-                   + "<i class='bi bi-trash2'></i> "
-                   + "</button></li></ul></td>");
+        tr.append("<td>"
+          + "<ul class='list-inline m-0'><li class='list-inline-item'>"
+          + "<button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-warning editar-usuario' data-id='" + usuario.token + "'> "
+          + "<i class='bi bi-pencil-square'></i>"
+          + "</button>"
+          + "</li> "
+          + "<li class='list-inline-item'>"
+          + "<button class='btn btn-danger eliminar-usuario' data-id='" + usuario.token + "'>"
+          + "<i class='bi bi-trash2'></i> "
+          + "</button></li></ul></td>");
 
         tbody.append(tr);
       });
-      // Asignar el evento de click al botón de edición
+      //actualizamos los botones de la paginacion
+      mostrarBotonesPaginacion(data.total_registros, pagina);
 
       $(".editar-usuario").click(function () {
-        var idUsuario = $(this).data("id");
-        $("#guardar").off("click");
-        $("button[type=submit]").attr("id", "editar")
-        $("#editar").off("click");
+        var tokenUsuario = $(this).data("id");
+        var numRegistros = $('#num_reg').val();
+        document.getElementById("containerbutton").innerHTML = "";
+        crearBoton("editar", "editar", tokenUsuario, numRegistros);
 
-        $("#editar").click(function (event) {
-          event.preventDefault(); 
-          editarUsuario(idUsuario);
-        });
-        var idUsuario = $(this).data("id");
         //************************************************************************************** */
         // Hacer la petición AJAX para obtener los datos de la usuario a editar
         $.ajax({
-          url: "../Controllers/obtener_usuario.php?id=" + idUsuario,
+          url: "../Controllers/obtener_usuario.php?token=" + tokenUsuario,
           type: "GET",
           dataType: "json",
           success: function (usuario) {
             // Llenar los campos del formulario con los datos de la usuario a editar
-            
+            console.log(usuario);
             $("#nombre").val(usuario.usuario);
             $("#id_roles").val(usuario.id_roles);
             $("#id_empleados").val(usuario.id_empleados);
@@ -110,7 +217,7 @@ function cargarDatos(buscar) {
             $("button[type='submit']").text("Editar");
 
             // Agregar el atributo data-id al formulario para enviar el ID de la usuario a editar
-            $("#form_usuario").attr("data-id", idUsuario);
+            $("#form_usuario").attr("data-id", tokenUsuario);
 
           },
           error: function () {
@@ -122,7 +229,7 @@ function cargarDatos(buscar) {
       /************************************************************************************************* */
       // Asignar el evento de click al botón de eliminación
       $(".eliminar-usuario").click(function () {
-        var idUsuario = $(this).data("id");
+        var tokenUsuario = $(this).data("id");
 
         Swal.fire({
           title: '¿Estas seguro?',
@@ -136,7 +243,7 @@ function cargarDatos(buscar) {
         }).then((result) => {
           if (result.isConfirmed) {
             $.ajax({
-              url: "../Controllers/eliminar_usuario.php?id=" + idUsuario,
+              url: "../Controllers/eliminar_usuario.php?token=" + tokenUsuario,
               type: "GET",
               success: function () {
                 Swal.fire({
@@ -145,23 +252,31 @@ function cargarDatos(buscar) {
                   text: 'Satisfactoriamente!'
                 })
                 // Recargar la tabla de usuarios para mostrar los cambios
-                cargarDatos("");
+                cargarDatos("", numRegistros, 1);
                 $("#cerrarModal").click();
               },
               error: function () {
-                alert("Error al eliminar el usuario");
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Ocurrio un error al procesar la informacion!'
+                })
               },
             });
           }
         })
 
-        
+
         // Hacer la petición AJAX para eliminar el registro
-        
+
       });
     },
-    error: function () {
-      alert("Error al cargar los datos");
+    error: function (data) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ocurrio un error al procesar la informacion!'
+      })
     },
   });
 }
@@ -174,48 +289,80 @@ function nuevoUsuario() {
     type: "GET",
     data: datos,
     success: function (response) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario Insertado Satisfactoriamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      $("#form_usuarios")[0].reset();
-      $("#cerrarModal").click();
-      // hacer algo en respuesta exitosa del servidor
-      cargarDatos("");
+      var comp = "success";
+      if (response.includes(comp)) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Usuario Insertado Satisfactoriamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        $("#form_usuarios")[0].reset();
+        $("#cerrarModal").click();
+        // hacer algo en respuesta exitosa del servidor
+        cargarDatos("", numRegistros, 1);
+      }
+      else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ocurrio un error al procesar la informacion!'
+        })
+      }
+
     },
     error: function (xhr, status, error) {
-      alert("Error al guardar la usuario");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ocurrio un error de lado del servidor!'
+      })
       // manejar el error del servidor
     },
   });
 }
 
 
-function editarUsuario(idUsuario) {
+function editarUsuario(tokenUsuario) {
 
 
-  var datos =$("#form_usuarios").serialize() ; // serializa los datos del formulario
+  var datos = $("#form_usuarios").serialize(); // serializa los datos del formulario
   console.log(datos);
   $.ajax({
-    url: "../Controllers/actualizar_usuario.php?id=" + idUsuario, // archivo PHP para procesar los datos
+    url: "../Controllers/actualizar_usuario.php?token=" + tokenUsuario, // archivo PHP para procesar los datos
     type: "GET",
     data: datos,
     success: function (response) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario Modificado Satisfactoriamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      $("#form_usuarios")[0].reset();
-      $("#cerrarModal").click();
-      // hacer algo en respuesta exitosa del servidor
-      cargarDatos("");
+      var comp = "success"
+      if (response.includes(comp)) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Usuario Modificado Satisfactoriamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        $("#form_usuarios")[0].reset();
+        $("#cerrarModal").click();
+        // hacer algo en respuesta exitosa del servidor
+        cargarDatos("", numRegistros, 1);
+      }
+      else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ocurrio un error al procesar la informacion!'
+        })
+      }
+
+
+
     },
     error: function (xhr, status, error) {
-      alert("Error al guardar la usuario");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ocurrio un error al procesar la informacion!'
+      })
       // manejar el error del servidor
     },
   });

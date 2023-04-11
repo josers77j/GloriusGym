@@ -2,12 +2,12 @@
 // Establecer la conexión a la base de datos
 include('../config.php');
 // Obtener el ID de la mascota a eliminar
-$idUsuario = $_GET["id"];
+$tokenUsuario = $_GET["token"];
 
 // Preparar la consulta SQL para eliminar la mascota
-$sql = "DELETE FROM tbl_usuarios WHERE id = :id";
+$sql = "DELETE FROM tbl_usuarios WHERE token = :token";
 $consulta = $pdo->prepare($sql);
-$consulta->bindParam(":id", $idUsuario);
+$consulta->bindParam(":token", $tokenUsuario);
 
 // Ejecutar la consulta SQL y verificar si se eliminó la mascota correctamente
 try {

@@ -1,14 +1,16 @@
 <?php
 include('../config.php');
 // Verificar que se ha recibido el ID de la mascota
-if (!isset($_GET['id'])) {
-    die('No se ha recibido el ID del usuario');
+if (!isset($_GET['token'])) {
+    die('No se ha recibido el token del usuario');
 }
 
-$idUsuario = $_GET['id'];
+$tokenUsuario = $_GET['token'];
 
-// Preparar la consulta SQL para obtener los datos de la mascota
-$consulta = $pdo->prepare("call obtenerUsuariosEdit(".$idUsuario.")");
+// Preparar la consulta SQL para obtener los datos del usuario
+$consulta = $pdo->prepare("call obtenerUsuariosEdit(:tokenUsuario)");
+$consulta->bindParam(':tokenUsuario', $tokenUsuario, PDO::PARAM_STR);
+
 // Ejecutar la consulta
 $consulta->execute();
 
