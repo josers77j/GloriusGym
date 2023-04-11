@@ -25,6 +25,7 @@ $stmt2->execute();
 $count = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
 
+$stmt2->closeCursor(); 
 // Devolver los resultados en formato JSON
 $data = array(
     'resultados' => $resultados,

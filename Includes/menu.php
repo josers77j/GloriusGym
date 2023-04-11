@@ -71,29 +71,16 @@ if (!empty($username)) {
                   <a href="../Views/empleadosView.php" class="nav-link px-0 aProperties text-secondary <?= $permiso ?>">
                     <i class="bi bi-person-vcard"></i><span class="d-none d-sm-inline"> Empleados</span> </a>
                 </li>
-              </ul>
-            </div>
-          </li>
-
-
-
-          <li class="border-top my-3"></li>
-          <li class="mb-1">
-            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-warning" data-bs-target="#account-collapse" aria-expanded="false">
-              <i class="bi bi-person-circle"></i> <span class="ms-1 d-none d-sm-inline"><?= $username ?></span></a>
-            </button>
-            <div class="collapse show" id="account-collapse">
-              <ul class="btn-toggle-nav list-unstyled pb-1 small">
-
-                <li>
-                  <a href="configuraciones.php" class="nav-link px-0 text-secondary"><i class="bi bi-person-gear"></i> <span class="d-none d-sm-inline ">Configuraciones</span></a>
-                </li>
-                <li>
-                  <a href="../Includes/logout.php" class="nav-link px-0 text-secondary"><i class="bi bi-box-arrow-left"></i> <span class="d-none d-sm-inline">Cerrar Sesion</span></a>
+                <li class="w-100">
+                  <a href="../Views/rolesView.php" class="nav-link px-0 aProperties text-secondary <?= $permiso ?>">
+                  <i class="bi bi-person-rolodex"></i><span class="d-none d-sm-inline"> Roles</span> </a>
                 </li>
               </ul>
             </div>
           </li>
+
+
+
         </ul>
 
       </div>

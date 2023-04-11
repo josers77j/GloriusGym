@@ -73,7 +73,7 @@
       </div>
       <div class="modal-footer bg-light">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Cerrar</button>
-        <button type="submit" class="btn btn-success" id="guardar" <?= isset($idEmpleado) ? " onclick='funcionEditar()'" : ""  ?>> Save changes</button>
+        <div id="containerbutton"></div>
       </div>
     </div>
   </div>

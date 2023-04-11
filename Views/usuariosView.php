@@ -1,7 +1,7 @@
 <?php
 include('../config.php');
 include('../Includes/header.php');
-include('../Includes/loginCheck.php'); ?>
+include('../Includes/adminCheck.php'); ?>
 <title>Usuarios</title>
 </head>
 

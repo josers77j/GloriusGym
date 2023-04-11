@@ -82,7 +82,7 @@ $query2 = $query2->fetchAll();
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Cerrar</button>
         <div id="containerbutton"></div>
       </div>
     </div>

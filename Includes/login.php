@@ -1,38 +1,36 @@
 <?php
 include('../config.php');
 session_start();
-    try {
-        //verifico los datos del login
-        $user=htmlentities(addslashes($_POST['usuario']));
-        $pass=htmlentities(addslashes($_POST['password']));//variable auxiliar para comprobar que el usuario existe o no
-        $contador = 0;//almaceno la consulta SQL en una variable
-        $sql = "SELECT * FROM tbl_usuarios WHERE usuario = :usuario";
-        //preparo la consulta SQL
-        $resultado=$pdo->prepare($sql);
-        //ejecucion de la consulta
-        $resultado->execute(array(":usuario"=>$user));
-        //resultado en un array asociativo tipo while
-        while($login=$resultado->fetch(PDO::FETCH_ASSOC)) {
-        if(password_verify($pass, $login['password'])) {
+try {
+    $user = htmlentities(addslashes($_POST['usuario']));
+    $pass = htmlentities(addslashes($_POST['password']));
+    $sql = "SELECT * FROM tbl_usuarios WHERE usuario = :usuario";
+    $resultado = $pdo->prepare($sql);
+    $resultado->execute(array(":usuario" => $user));
+    $login = $resultado->fetch(PDO::FETCH_ASSOC);
+    if ($login && password_verify($pass, $login['password'])) {
+        
+        $sql2 = "SELECT * FROM tbl_usuarios WHERE usuario = :usuario";
+        $resultado2 = $pdo->prepare($sql2);
+        $resultado2->execute(array(":usuario" => $user));
+        
+        $usuario = $resultado2->fetch(PDO::FETCH_ASSOC);
+      
+        $_SESSION['username'] = $usuario['usuario'];   
+        $_SESSION['id_roles'] = $usuario['id_roles'];
+        echo $_SESSION['id_roles']; 
+        $_SESSION['primer_login'] = true;
+        echo "<script> window.location = '../Views/principalView.php';</script>";
+    } else {
+        echo "<script>alert('¡Error al validar el usuario y/o contraseña!'); window.location = '../index.php?error=1';</script>";
+        exit;
+    }        
+    //cierro la conexion
+    $pdo = null;
+} catch(Exception $e) {
+    die($e->getMessage());
+}
 
-        $contador++;
-        }
-        }
-        
-        if ($contador>0) {
-            $_SESSION['username'] = $user;
-            $_SESSION['primer_login'] = true;
-            echo "<script> window.location = '../Views/principalView.php';</script>";
-        } else {
-            echo "<script>alert('¡Error al validar el usuario y/o contraseña!'); window.location = '../index.php?error=1';</script>";
-            exit;
-        }
-        
-        //cierro la conexion
-        $conexion = null;
-        } catch(Exception $e) {
-        die($e->getMessage());
-        }
         
     ?>
 

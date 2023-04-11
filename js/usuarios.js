@@ -1,15 +1,14 @@
 $(document).ready(function () {
+    //obtener el id del select 
   var numRegistros = $('#num_reg').val();
   // Cargar los datos por defecto al cargar la página
   cargarDatos("", numRegistros, 1);
-
   // Asignar el evento de búsqueda al input de búsqueda
   $("#busqueda-usuarios").keyup(function () {
     var numRegistros = $('#num_reg').val();
     var buscar = $(this).val();
     cargarDatos(buscar, numRegistros, 1);
   });
-
   // Asignar el evento de cambio de valor al select
   $("#num_reg").change(function () {
     // Obtener el nuevo valor seleccionado
@@ -20,10 +19,15 @@ $(document).ready(function () {
   });
 });
 
-
-
-function crearBoton(nombre, id, tokenMascota, numRegistros) {
-  var token = tokenMascota
+//una vez el usuario selecciona editar y sale de la modal, y quiera ingresar a nuevo, los datos se eliminaran
+function limpiarFormulario() {
+  $("#form_usuarios")[0].reset();
+  $("button[type='submit']").text("Guardar");
+  $("#form_usuario").removeAttr("data-id");
+}
+//funcion que crea un boton guardar o editar, dependiendo la accion 
+function crearBoton(nombre, id, tokenUsuario, numRegistros) {
+  var token = tokenUsuario;
   var numReg = numRegistros;
   // Crear el botón
   var boton = document.createElement("button");
@@ -36,7 +40,6 @@ function crearBoton(nombre, id, tokenMascota, numRegistros) {
   // Agregar el botón al DOM
   containerbutton.appendChild(boton);
   boton.onclick = function () {
-    console.log("Se hizo clic en el botón " + token);
     if (!token) {
       nuevoUsuario(numReg);
     } else {
@@ -54,11 +57,6 @@ $('#nuevo').click(function () {
 
 
 
-function limpiarFormulario() {
-  $("#form_usuarios")[0].reset();
-  $("button[type='submit']").text("Guardar");
-  $("#form_usuario").removeAttr("data-id");
-}
 
 function mostrarBotonesPaginacion(registro, pagina) {
   var buscador = $('#busqueda-usuarios').val();

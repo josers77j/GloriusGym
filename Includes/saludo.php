@@ -28,8 +28,21 @@ if (isset($_SESSION['primer_login']) && $_SESSION['primer_login']) {
 
 <div class="p-md-3 rounded-end text-bg-dark">
         <div class="row">
-            <div class="col-md-0">
+            <div class="col-md-10">
                 <?= '<h1 class="display-4 fs-2 fst-italic">' . $saludo . '</h1>' ?>
+            </div>
+            <div class="col-md-2">
+            <div class="flex-shrink-0 dropdown">
+          <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://images4.alphacoders.com/615/61508.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+        
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person-gear"></i> Configuraciones</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="../Includes/logout.php"> <i class="bi bi-box-arrow-left"></i> Cerrar Sesion</a></li>
+          </ul>
+        </div>
             </div>
         </div>
     </div>

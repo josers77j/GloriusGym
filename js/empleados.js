@@ -1,17 +1,16 @@
 $(document).ready(function () {
   //obtener el id del select 
   var numRegistros = $('#num_reg').val();
+  var fechaActual = new Date().toISOString().slice(0, 10);
 
   // Cargar los datos por defecto al cargar la página
   cargarDatos("", numRegistros, 1);
-
   // Asignar el evento de búsqueda al input de búsqueda
   $("#busqueda-empleados").keyup(function () {
     var numRegistros = $('#num_reg').val();
     var buscar = $(this).val();
     cargarDatos(buscar, numRegistros,1);
   });
-
   // Asignar el evento de cambio de valor al select
   $("#num_reg").change(function () {
     // Obtener el nuevo valor seleccionado
@@ -20,25 +19,9 @@ $(document).ready(function () {
     // Agregar el nuevo valor al URL de la página actual
     cargarDatos(buscador, nuevoNumRegistros,1);
   });
-
 });
 
-$('#guardar').click(function () {
-  $.ajax({}).abort();
-  $("#editar").off("click");
-  // Obtener la fecha actual en formato YYYY-MM-DD
-  var fechaActual = new Date().toISOString().slice(0, 10);
-  var numRegistros = $('#num_reg').val();
-  // Asignar la fecha actual al valor del input
-  document.getElementById("fecha_reg").value = fechaActual;
 
-  $("button[type=submit]").attr("id", "guardar");
-  $("#guardar").off("click");
-
-  $("#guardar").click(function () {
-    nuevoEmpleado(numRegistros);
-  });
-})
 
 
 //una vez el usuario selecciona editar y sale de la modal, y quiera ingresar a nuevo, los datos se eliminaran
@@ -48,7 +31,35 @@ function limpiarFormulario() {
   $("#form_empleado").removeAttr("data-id");
 }
 
+//funcion que crea un boton guardar o editar, dependiendo la accion 
+function crearBoton(nombre, id, idEmpleado, numRegistros) {
+  var id = idEmpleado
+  var numReg = numRegistros;
+  // Crear el botón
+  var boton = document.createElement("button");
+  // Establecer el texto y el id del botón
+  boton.textContent = nombre;
+  boton.id = id;
+  // Agregar la clase "btn" y "btn-primary" al botón
+  boton.classList.add("btn", "btn-success");
 
+  // Agregar el botón al DOM
+  containerbutton.appendChild(boton);
+  boton.onclick = function () {
+    if (!id) {
+      nuevoEmpleado(numReg);
+    } else {
+
+      editarEmpleado(id,numReg);
+    }
+  };
+}
+$('#nuevo').click(function () {
+  document.getElementById("containerbutton").innerHTML = "";
+  var numRegistros = $('#num_reg').val();
+  crearBoton("guardar", "guardar", "", numRegistros);
+
+})
 
 function mostrarBotonesPaginacion(registro, pagina) {
   var buscador = $('#busqueda-empleados').val();
@@ -178,18 +189,11 @@ function cargarDatos(buscar, numRegistros, pagina) {
 
       // Asignar el evento de click al botón de edición
 
-      $(".editar-empleado").click(function () {
+      $(".editar-empleado").click(function () {       
         var idEmpleado = $(this).data("id");
         var numRegistros = $('#num_reg').val();
-        $("#guardar").off("click");
-        $("button[type=submit]").attr("id", "editar")
-        $("#editar").off("click");
-
-        $("#editar").click(function () {
-
-          editarEmpleado(idEmpleado,numRegistros);
-        });
-        var idEmpleado = $(this).data("id");
+        document.getElementById("containerbutton").innerHTML = "";
+        crearBoton("editar", "editar", idEmpleado, numRegistros);
         //************************************************************************************** */
         // Hacer la petición AJAX para obtener los datos de la empleado a editar
         $.ajax({
