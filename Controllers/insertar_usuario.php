@@ -23,6 +23,9 @@ if (
         ':id_empl' => $id_empl,
         ':status' => $stat
     ))) {
+        $statusEmpleadoActivo = 1;
+        $statusEmpleadoInactivo = 0;
+
         $pdo = null;
         $response = ["response" => "success"];
         $json_response = json_encode($response);

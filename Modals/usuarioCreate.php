@@ -7,6 +7,9 @@ $query = $query->fetchAll();
 $query2 = $pdo->prepare("call obtenerEmpleadosU()");
 $query2->execute();
 $query2 = $query2->fetchAll();
+
+
+
 ?>
 
 <!-- pdo::fetchAssoc  -->

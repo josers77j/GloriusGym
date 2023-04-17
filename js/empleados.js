@@ -21,9 +21,6 @@ $(document).ready(function () {
   });
 });
 
-
-
-
 //una vez el usuario selecciona editar y sale de la modal, y quiera ingresar a nuevo, los datos se eliminaran
 function limpiarFormulario() {
   $("#form_empleados")[0].reset();
