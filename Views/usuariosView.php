@@ -15,6 +15,7 @@ include('../Includes/saludo.php');
         <div class="col-4">
 
             <?php
+             include("../Modals/usuarioEdit.php");
             include("../Modals/usuarioCreate.php");
             ?>
         </div>

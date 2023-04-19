@@ -18,6 +18,7 @@ try {
       
         $_SESSION['username'] = $usuario['usuario'];   
         $_SESSION['id_roles'] = $usuario['id_roles'];
+        $_SESSION['token'] = $usuario['token'];
         echo $_SESSION['id_roles']; 
         $_SESSION['primer_login'] = true;
         echo "<script> window.location = '../Views/principalView.php';</script>";

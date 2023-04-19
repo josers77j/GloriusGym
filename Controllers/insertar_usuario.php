@@ -27,9 +27,7 @@ if (
         $statusEmpleadoInactivo = 0;
 
         $pdo = null;
-        $response = ["response" => "success"];
-        $json_response = json_encode($response);
-        echo trim($json_response);
+        echo json_encode(["status" => "success"]);
     } else {
         $pdo = null;
         echo json_encode(["status" => "error"]);

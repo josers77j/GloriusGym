@@ -22,11 +22,37 @@ $(document).ready(function () {
 //una vez el usuario selecciona editar y sale de la modal, y quiera ingresar a nuevo, los datos se eliminaran
 function limpiarFormulario() {
   $("#form_usuarios")[0].reset();
+  $("#form_usuariosEdit")[0].reset();
   $("button[type='submit']").text("Guardar");
-  $("#form_usuario").removeAttr("data-id");
+  $("#form_usuariosEdit").removeAttr("data-id");
 }
 //funcion que crea un boton guardar o editar, dependiendo la accion 
-function crearBoton(nombre, id, tokenUsuario, numRegistros) {
+function crearBotonSave(nombre, id,container , numRegistros) {
+  var numReg = numRegistros;
+  // Crear el botón
+  var boton = document.createElement("button");
+  // Establecer el texto y el id del botón
+  boton.textContent = nombre;
+  boton.id = id;
+  // Agregar la clase "btn" y "btn-primary" al botón
+  boton.classList.add("btn", "btn-success");
+
+  // Agregar el botón al DOM
+  container.appendChild(boton);
+
+  boton.onclick = function () {
+      nuevoUsuario(numReg);
+  };
+}
+
+$('#nuevo').click(function () {
+  document.getElementById("containerbuttonsave").innerHTML = "";
+  var numRegistros = $('#num_reg').val();
+  crearBotonSave("guardar", "guardar", document.getElementById("containerbuttonsave"), numRegistros);
+
+})
+
+function crearBotonEdit(nombre, id, tokenUsuario, numRegistros){
   var token = tokenUsuario;
   var numReg = numRegistros;
   // Crear el botón
@@ -38,23 +64,12 @@ function crearBoton(nombre, id, tokenUsuario, numRegistros) {
   boton.classList.add("btn", "btn-success");
 
   // Agregar el botón al DOM
-  containerbutton.appendChild(boton);
+  containerbuttonedit.appendChild(boton);
   boton.onclick = function () {
-    if (!token) {
-      nuevoUsuario(numReg);
-    } else {
-
-      editarUsuario(token,numReg);
-    }
+    editarUsuario(token,numReg);
   };
+  
 }
-$('#nuevo').click(function () {
-  document.getElementById("containerbutton").innerHTML = "";
-  var numRegistros = $('#num_reg').val();
-  crearBoton("guardar", "guardar", "", numRegistros);
-
-})
-
 
 
 
@@ -177,7 +192,7 @@ function cargarDatos(buscar, numRegistros, pagina) {
         tr.append("<td>" + status + "</td>");
         tr.append("<td>"
           + "<ul class='list-inline m-0'><li class='list-inline-item'>"
-          + "<button data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-warning editar-usuario' data-id='" + usuario.token + "'> "
+          + "<button data-bs-toggle='modal' data-bs-target='#ModalEdit' class='btn btn-warning editar-usuario' data-id='" + usuario.token + "'> "
           + "<i class='bi bi-pencil-square'></i>"
           + "</button>"
           + "</li> "
@@ -194,8 +209,8 @@ function cargarDatos(buscar, numRegistros, pagina) {
       $(".editar-usuario").click(function () {
         var tokenUsuario = $(this).data("id");
         var numRegistros = $('#num_reg').val();
-        document.getElementById("containerbutton").innerHTML = "";
-        crearBoton("editar", "editar", tokenUsuario, numRegistros);
+        document.getElementById("containerbuttonedit").innerHTML = "";
+        crearBotonEdit("editar", "editar", tokenUsuario, numRegistros);
 
         //************************************************************************************** */
         // Hacer la petición AJAX para obtener los datos de la usuario a editar
@@ -203,22 +218,36 @@ function cargarDatos(buscar, numRegistros, pagina) {
           url: "../Controllers/obtener_usuario.php?token=" + tokenUsuario,
           type: "GET",
           dataType: "json",
-          success: function (usuario) {
+          success: function (data) {
             // Llenar los campos del formulario con los datos de la usuario a editar
-            console.log(usuario);
-            $("#nombre").val(usuario.usuario);
-            $("#id_roles").val(usuario.id_roles);
-            $("#id_empleados").val(usuario.id_empleados);
-            $("#id_status").val(usuario.status);
+            $("#nombre").val(data.resultados.usuario);
+            $("#id_roles").val(data.resultados.id_roles);
+            $("#id_empleados").val(data.resultados.id_empleados);
+            $("#id_status").val(data.resultados.status);
 
+            var select = $("#selectEmpleados");
+            select.empty(); // Vaciar opciones anteriores, si es que existen
+            
+            // Crear la opción seleccionada
+            var optionSeleccionada = $("<option>").val(data.resultados.id_empleados).text(data.resultados.empleado);
+            optionSeleccionada.prop("selected", true);
+            
+            // Agregar la opción seleccionada al select
+            select.append(optionSeleccionada);
+            
+            // Agregar las opciones adicionales para los demás empleados
+            $.each(data.empleados, function(index, empleado) {
+              select.append($("<option>").val(empleado.id).text(empleado.nombre));
+            });
             // Cambiar el texto del botón de submit para indicar que se está editando
-            $("button[type='submit']").text("Editar");
+         
 
             // Agregar el atributo data-id al formulario para enviar el ID de la usuario a editar
-            $("#form_usuario").attr("data-id", tokenUsuario);
+            $("#form_usuariosEdit").attr("data-id", tokenUsuario);
 
           },
-          error: function () {
+          error: function (data) {
+            console.log(data.resultados)
             alert("Error al obtener los datos del usuarios");
 
           },
@@ -280,7 +309,7 @@ function cargarDatos(buscar, numRegistros, pagina) {
 }
 
 
-function nuevoUsuario() {
+function nuevoUsuario(numRegistros) {
   var datos = $("#form_usuarios").serialize(); // serializa los datos del formulario
   $.ajax({
     url: "../Controllers/insertar_usuario.php", // archivo PHP para procesar los datos
@@ -296,7 +325,7 @@ function nuevoUsuario() {
           timer: 1500
         })
         $("#form_usuarios")[0].reset();
-        $("#cerrarModal").click();
+        $("#cerrarModalSave").click();
         // hacer algo en respuesta exitosa del servidor
         cargarDatos("", numRegistros, 1);
       }
@@ -321,10 +350,10 @@ function nuevoUsuario() {
 }
 
 
-function editarUsuario(tokenUsuario) {
+function editarUsuario(tokenUsuario, numRegistros) {
 
 
-  var datos = $("#form_usuarios").serialize(); // serializa los datos del formulario
+  var datos = $("#form_usuariosEdit").serialize(); // serializa los datos del formulario
   console.log(datos);
   $.ajax({
     url: "../Controllers/actualizar_usuario.php?token=" + tokenUsuario, // archivo PHP para procesar los datos
@@ -339,8 +368,8 @@ function editarUsuario(tokenUsuario) {
           showConfirmButton: false,
           timer: 1500
         })
-        $("#form_usuarios")[0].reset();
-        $("#cerrarModal").click();
+        $("#form_usuariosEdit")[0].reset();
+        $("#cerrarModalEdit").click();
         // hacer algo en respuesta exitosa del servidor
         cargarDatos("", numRegistros, 1);
       }

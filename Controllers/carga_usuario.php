@@ -20,10 +20,7 @@ $sqlCount = "SELECT COUNT(*) as total_registros FROM tbl_usuarios WHERE usuario 
 $stmt2 = $pdo->prepare($sqlCount);
 $stmt2->execute();
 
-
-
 $count = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-
 
 $stmt2->closeCursor(); 
 // Devolver los resultados en formato JSON

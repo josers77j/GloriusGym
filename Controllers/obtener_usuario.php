@@ -16,6 +16,25 @@ $consulta->execute();
 
 // Obtener los resultados
 $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+$id_empleado = $usuario['id_empleados'];
 
+
+//cierro la consulta
+$consulta->closeCursor();
+
+//inicio la consulta para llenar el select de empleados
+$sql = "SELECT * FROM tbl_empleados WHERE status = 0 ";
+$stmt2 = $pdo->prepare($sql);
+$stmt2->execute();
+
+$empleados = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt2->closeCursor(); 
+
+
+$data = array(
+    'resultados' => $usuario,
+    'empleados' => $empleados
+);
 // Devolver los datos de la mascota como JSON
-echo json_encode($usuario);
+echo json_encode($data);

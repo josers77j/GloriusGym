@@ -263,7 +263,11 @@ function cargarDatos(buscar, numRegistros, pagina) {
       });
     },
     error: function () {
-      alert("Error al cargar los datos");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ocurrio un error al procesar la informacion!'
+      })
     },
   });
 }
@@ -277,22 +281,36 @@ function nuevoEmpleado(numRegistros) {
     type: "GET",
     data: datos,
     success: function (response) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Empleado Insertado Satisfactoriamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      
-      $("#form_empleados")[0].reset();
-      $("#cerrarModal").click();
-      cargarDatos("", numRegistros, 1);
-
-      // hacer algo en respuesta exitosa del servidor
+      var comp = "success";
+      if(response.includes(comp)){
+        Swal.fire({
+          icon: 'success',
+          title: 'Empleado Insertado Satisfactoriamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        
+        $("#form_empleados")[0].reset();
+        $("#cerrarModal").click();
+        cargarDatos("", numRegistros, 1);
+  
+        // hacer algo en respuesta exitosa del servidor
+        
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error al guardar el registro!'
+        })
+      }
       
     },
     error: function (xhr, status, error) {
-      alert("Error al guardar la empleado");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al guardar el registro!'
+      })
       // manejar el error del servidor
     },
   });
@@ -307,7 +325,8 @@ function editarEmpleado(idEmpleado, numRegistros) {
     type: "GET",
     data: datos,
     success: function (response) {
-
+      var comp = "success";
+      if(response.includes(comp)){
       Swal.fire({
         icon: 'success',
         title: 'Empleado Modificado Satisfactoriamente',
@@ -318,11 +337,22 @@ function editarEmpleado(idEmpleado, numRegistros) {
       $("#form_empleados")[0].reset();
       $("#cerrarModal").click();
       cargarDatos("", numRegistros, 1);
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al modificar el registro!'
+      })
 
+    }
       // hacer algo en respuesta exitosa del servidor
     },
     error: function (xhr, status, error) {
-      alert("Error al guardar la empleado");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al guardar el registro!'
+      })
       // manejar el error del servidor
     },
   });

@@ -4,24 +4,24 @@ $query = $pdo->prepare("call obtenerRoles()");
 $query->execute();
 $query = $query->fetchAll();
 
-$query2 = $pdo->prepare("call obtenerEmpleadosU()");
-$query2->execute();
-$query2 = $query2->fetchAll();
+
+
+
 ?>
 
 <!-- pdo::fetchAssoc  -->
 <!-- pdo::fetchobj -->
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Usuarios</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar Usuario</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
-        <form id="form_usuarios" method="post">
+        <form id="form_usuariosEdit" method="post">
           <div class="row">
             <div class="form-group col-6">
               <label for="nombre">Nombre de usuario:</label>
@@ -57,14 +57,7 @@ $query2 = $query2->fetchAll();
             <div class="form-group col-6">
               <label for="id_roles">Empleado:</label>
               <div class="input-group mb-3">
-                <select class="form-control" id="id_empleados" name="id_empleados">
-                  <option selected value="id_empleados">Seleccionar Empleado</option>
-                  <?php
-                  foreach ($query2 as $key) :
-                  ?>
-                    <option value="<?php echo $key['id']; ?>"><?php echo $key['nombre']; ?></option>
-                  <?php endforeach; ?>
-                </select>
+                <select class="form-control" id="selectEmpleados" name="id_empleados""></select>
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-lines-fill"></i></span>
               </div>
             </div>
@@ -82,8 +75,9 @@ $query2 = $query2->fetchAll();
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModalSave">Cerrar</button>
-        <div id="containerbuttonsave"></div>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModalEdit">Cerrar</button>
+        <div id="containerbuttonedit"></div>
+        
       </div>
     </div>
   </div>
