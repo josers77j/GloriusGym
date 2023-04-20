@@ -166,6 +166,7 @@ include('../Includes/saludo.php');
 
     </div>
 </div>
+
 <?php include('../Includes/footer.php') ?>
 
 </body>

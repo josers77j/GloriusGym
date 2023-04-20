@@ -25,23 +25,19 @@ if (!empty($username)) {
 
     <div class="col-2 col-sm-auto px-sm-4 px-0 bg-dark">
       <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-3 text-white min-vh-100">
-        <a href="/" class="d-flex align-items-center mb-3 mb-sm-0 me-sm-auto link-dark text-decoration-none">
-          <img src="../img/gym-icon.png" class="" width="40" height="32">
+        <a href="../Views/dashboardView.php" class="d-flex align-items-center mb-3 mb-sm-0 me-sm-auto link-dark text-decoration-none">
+          <img src="../img/gym-icon.png" width="40" height="32">
         </a>
 
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-          <li class="nav-item">
-            
-            <a href="../Views/principalView.php" class="hover-class nav-link px-0 align-middle text-white"> <i class=" bi-house"></i> <span class="ms-1 d-none d-sm-inline">Inicio</span>
-            </a>
-          </li>
+     
 
-          <li>
+          <li class="nav-item mx-1 my-1 w-100">
             <a href="../Views/dashboardView.php" class="nav-link px-0 align-middle text-white" id="my-element">
               <i class=" bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
           </li>
 
-          <li>
+          <li class="nav-item mx-1 w-100">
             <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-warning" data-bs-target="#account-collapse1" aria-expanded="false">
               <i class="bi bi-list"></i><span class="ms-1 d-none d-sm-inline">Accciones</span> </a>
             <div class="collapse show" id="account-collapse1">
@@ -60,7 +56,7 @@ if (!empty($username)) {
             </div>
           </li>
 
-          <li>
+          <li class="nav-item mx-1 w-100">
             <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-warning <?= $permiso ?>" data-bs-target="#account-collapse2" aria-expanded="false">
             <i class="bi bi-menu-app"></i><span class="ms-1 d-none d-sm-inline">Administrar</span></a>
             <div class="collapse show" id="account-collapse2">

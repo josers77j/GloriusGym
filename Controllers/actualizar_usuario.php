@@ -71,19 +71,20 @@ try {
 function empleadoSetStatus($token, $pdo, $id_empl)
 {
 
-    $tokenUsuario = $token;
+// Preparar la consulta SQL para obtener los datos del usuario
+$consulta = $pdo->prepare("call obtenerUsuariosEdit(:tokenUsuario)");
+$consulta->bindParam(':tokenUsuario', $token, PDO::PARAM_STR);
 
-    // Preparar la consulta SQL para obtener los datos del usuario
-    $consulta = $pdo->prepare("call obtenerUsuariosEdit(:tokenUsuario)");
-    $consulta->bindParam(':tokenUsuario', $tokenUsuario, PDO::PARAM_STR);
-    // Ejecutar la consulta
-    $consulta->execute();
-    // Obtener los resultados    
-    $id_empleado = $consulta->fetchColumn();
-    $consulta->closeCursor();
-    echo $id_empleado;
+// Ejecutar la consulta
+$consulta->execute();
+
+// Obtener los resultados
+$usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+$id_empleado = $usuario['id_empleados'];
 
 
+//cierro la consulta
+$consulta->closeCursor();   
 
     if ($id_empleado != $id_empl) {
         $statusoff = 0;
@@ -100,10 +101,6 @@ function empleadoSetStatus($token, $pdo, $id_empl)
             'id_emplNew' => $id_empl
         ]);
     
-        echo "llega";
-
-        echo $id_empleado . "id empleado anterior -";
-        echo $id_empl . "id nuevo empleado -";
-        echo $statusoff . "status -";
+     
     }
 }
