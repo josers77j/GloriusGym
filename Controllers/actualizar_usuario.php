@@ -1,26 +1,27 @@
 <?php
-
 include('../config.php');
 
+session_start();
 // Actualizar el registro en la base de datos
 try {
 
-    if (preg_match('/^[a-zA-Z0-9áéíóúÁÉÍÓÚ ]+$/', $_GET['nombre'])) {
-
-        session_start();
+    if (preg_match('/^[a-zA-Z0-9áéíóúÁÉÍÓÚ ]+$/', $_GET['nombre']) &&
+        preg_match('/^[0-9 ]+$/', $_GET['id_roles']) &&
+        preg_match('/^[0-9 ]+$/', $_GET['id_empleados']) &&
+        preg_match('/^[0-9 ]+$/', $_GET['id_status'])) {
 
         $token = $_GET['token'];
         // Obtener los datos actuales del registro
         $user = $_GET['nombre'];
-        $pass = $_GET['password'];
+        
         $id_rol = $_GET['id_roles'];
         $id_empl = $_GET['id_empleados'];
         $status = $_GET['id_status'];
         if ($_SESSION['token'] == $token) {
             $_SESSION['username'] = $user;
         }
-        $hash = password_hash($pass, PASSWORD_BCRYPT);
-        if (empty($pass)) {
+        if (empty($_GET['password'])) {
+            
             empleadoSetStatus($token, $pdo, $id_empl);
             $stmt = $pdo->prepare("UPDATE tbl_usuarios SET usuario = :usuario, 
                 id_roles = :id_rol, 
@@ -40,6 +41,8 @@ try {
             echo json_encode(["status" => "success"]);
         }
         if (preg_match('/^[a-zA-Z0-9áéíóúÁÉÍÓÚ ]+$/', $_GET['password'])) {
+            $pass = $_GET['password'];
+            $hash = password_hash($pass, PASSWORD_BCRYPT);
             empleadoSetStatus($token, $pdo, $id_empl);
             $stmt = $pdo->prepare("UPDATE tbl_usuarios SET usuario = :usuario, 
                password = :pass, 

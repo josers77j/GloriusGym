@@ -3,7 +3,8 @@ include('../config.php');
 
 
 
-if (preg_match('/^[a-zA-Z0-9áéíóúÁÉÍÓÚ ]+$/', $_GET['nombre'])) {
+if (preg_match('/^[a-zA-Z0-9áéíóúÁÉÍÓÚ ]+$/', $_GET['nombre']) &&
+    preg_match('/^[0-9 ]+$/', $_GET['status'])) {
     $nombre = $_GET['nombre'];
     $status = $_GET['status'];
     

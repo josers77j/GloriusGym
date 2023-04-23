@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       filter_var($_GET['correo'], FILTER_VALIDATE_EMAIL) &&
       preg_match('/^[0-9]+(\.[0-9]{1,2})?$/', $_GET['salario']) 
       ) {
-        $nombre = filter_input(INPUT_GET, 'nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $nombre = filter_input(INPUT_GET, 'nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $telefono = filter_input(INPUT_GET, 'telefono', FILTER_VALIDATE_INT);
     $direccion = filter_input(INPUT_GET, 'direccion', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $correo = filter_input(INPUT_GET, 'correo', FILTER_SANITIZE_EMAIL);
