@@ -96,7 +96,7 @@ include('../Includes/saludo.php');
 </div>
     <?php include("../Includes/footer.php"); ?>
     <script src="../js/usuarios.js"></script>
-
+<script src="../js/logout.js"></script>
     </body>
 
     </html>

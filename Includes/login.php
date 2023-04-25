@@ -21,7 +21,7 @@ try {
         $_SESSION['token'] = $usuario['token'];
         echo $_SESSION['id_roles']; 
         $_SESSION['primer_login'] = true;
-        echo "<script> window.location = '../Views/principalView.php';</script>";
+        echo "<script> window.location = '../Views/dashboardView.php';</script>";
     } else {
         echo "<script>alert('¡Error al validar el usuario y/o contraseña!'); window.location = '../index.php?error=1';</script>";
         exit;

@@ -23,7 +23,7 @@
         <div class="form-group col-6">
             <label for="nombre">Telefono:</label>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Tomoya116" required>
+                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="77895665" required>
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone"></i></span>
             </div>
         </div>

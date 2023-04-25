@@ -71,85 +71,82 @@ function crearBotonEdit(nombre, id, tokenUsuario, numRegistros){
   
 }
 
-
-
 function mostrarBotonesPaginacion(registro, pagina) {
   var buscador = $('#busqueda-usuarios').val();
   var numRegistros = $('#num_reg').val();
   var numPaginas = Math.ceil(registro / numRegistros);
   var paginaActual = pagina;
   var paginador = $("#paginador");
-
+  
   // Limpiar el contenedor de botones de paginación
   paginador.empty();
-
+  
   // Obtener el número de páginas a mostrar y la página inicial a mostrar
   var numPagesDisplayed = Math.min(5, numPaginas);
-  var startPage = paginaActual;
-  if (paginaActual > 3) {
-    startPage = paginaActual - 2;
-  } else if (numPaginas > numPagesDisplayed) {
-    numPagesDisplayed = Math.min(numPagesDisplayed, 4 + paginaActual);
-  }
-
+  var startPage = Math.max(1, paginaActual - 2);
+  var endPage = Math.min(numPaginas, startPage + numPagesDisplayed - 1);
+  startPage = Math.max(1, endPage - numPagesDisplayed + 1);
+  
   // Agregar los enlaces de paginación
-  for (var i = startPage; i < startPage + numPagesDisplayed && i <= numPaginas; i++) {
-    var enlace = $("<a>").addClass("page-link mx-1").text(i).attr("href", "#");
-
-    if (i == paginaActual) {
-      enlace.addClass("active");
-    } else {
-      // Agregar el evento click para enviar el número de página
-      enlace.click((function (numeroDePagina) {
-        return function () {
-          cargarDatos(buscador, numRegistros, numeroDePagina);
-        }
-      })(i));
-    }
-
-    var span = $("<span>").addClass("page-item");
-    span.append(enlace);
-
-    var li = $("<li>").addClass("page-item");
-    li.append(span);
-
-    paginador.append(li);
+  for (var i = startPage; i <= endPage; i++) {
+  var enlace = $("<a>").addClass("page-link mx-1").text(i).attr("href", "#");
+  
+ 
+  if (i == paginaActual) {
+    enlace.addClass("active");
+  } else {
+    // Agregar el evento click para enviar el número de página
+    enlace.click((function (numeroDePagina) {
+      return function () {
+        cargarDatos(buscador, numRegistros, numeroDePagina);
+      }
+    })(i));
   }
-
-  // Agregar el enlace de página anterior si no estamos en la primera página
+  
+  var span = $("<span>").addClass("page-item");
+  span.append(enlace);
+  
+  var li = $("<li>").addClass("page-item");
+  li.append(span);
+  
+  paginador.append(li);
+  }
+  
   // Agregar el enlace de página anterior si no estamos en la primera página
   if (paginaActual > 1) {
-    var prevLink = $("<a>").addClass("page-link mx-1").html('<i class="bi bi-chevron-left"></i>').attr("href", "#");
-    prevLink.click(function () {
-      cargarDatos(buscador, numRegistros, paginaActual - 1);
-    });
+  var prevLink = $("<a>").addClass("page-link mx-1").html('<i class="bi bi-chevron-left"></i>').attr("href", "#");
+  prevLink.click(function () {
+  cargarDatos(buscador, numRegistros, paginaActual - 1);
+  });
 
-    var span = $("<span>").addClass("page-item");
-    span.append(prevLink);
-
-    var li = $("<li>").addClass("page-item");
-    li.append(span);
-
-    paginador.prepend(li);
+  var span = $("<span>").addClass("page-item");
+  span.append(prevLink);
+  
+  var li = $("<li>").addClass("page-item");
+  li.append(span);
+  
+  paginador.prepend(li);
   }
-
+  
   // Agregar el enlace de página siguiente si no estamos en la última página
   if (paginaActual < numPaginas) {
-    var nextLink = $("<a>").addClass("page-link mx-1").html('<i class="bi bi-chevron-right"></i>').attr("href", "#");
-    nextLink.click(function () {
-      cargarDatos(buscador, numRegistros, paginaActual + 1);
-    });
-
-    var span = $("<span>").addClass("page-item");
-    span.append(nextLink);
-
-    var li = $("<li>").addClass("page-item");
-    li.append(span);
-
-    paginador.append(li);
+  var nextLink = $("<a>").addClass("page-link mx-1").html('<i class="bi bi-chevron-right"></i>').attr("href", "#");
+  nextLink.click(function () {
+  cargarDatos(buscador, numRegistros, paginaActual + 1);
+  });
+  
+  var span = $("<span>").addClass("page-item");
+  span.append(nextLink);
+  
+  var li = $("<li>").addClass("page-item");
+  li.append(span);
+  
+  paginador.append(li);
+  }
   }
 
-}
+
+
 
 
 function obtenerEtiqueta(status) {

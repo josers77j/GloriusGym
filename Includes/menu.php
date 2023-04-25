@@ -2,6 +2,8 @@
 
 include('../config.php');
 
+
+
 if (!empty($username)) {
   $query5 = 'select id,usuario,id_roles from tbl_usuarios
   where usuario = "' . $username . '"';
