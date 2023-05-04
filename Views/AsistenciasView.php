@@ -38,7 +38,7 @@ include('../Includes/saludo.php');
                     <div class="table-responsive">
 
 
-                        <table id="tabla-empleados" class="table table-borderless  text-center table-hover">
+                        <table id="tabla-asistencias" class="table table-borderless  text-center table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Nombre</th>

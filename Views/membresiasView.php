@@ -54,7 +54,7 @@ include('../Includes/saludo.php');
                     <div class="table-responsive">
 
 
-                        <table id="tabla-empleados" class="table table-borderless  text-center table-hover">
+                        <table id="tabla-membresias" class="table table-borderless  text-center table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Nombre</th>
@@ -87,7 +87,7 @@ include('../Includes/saludo.php');
 </div>
 
 <?php include("../Includes/footer.php"); ?>
-<script src="../js/empleados.js"></script>
+<script src="../js/membresias.js"></script>
 
 
 </body>
