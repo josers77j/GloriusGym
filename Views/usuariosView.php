@@ -51,10 +51,9 @@ include('../Includes/saludo.php');
                     </div>
                 </div>
             </div>
-
             <div class="container-fluid bg-light shadow p-0 mb-5 bg-body rounded">
-                <div class="container mt-3 px-3 py-2">
-                    <table id="tabla-usuarios" class="table text-center table-hover">
+                <div class="container mt-3 p-0">
+                    <table id="tabla-usuarios" class="table table-borderless text-center table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Usuario</th>
