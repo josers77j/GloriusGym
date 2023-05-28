@@ -1,27 +1,3 @@
-<?php
-
-include('../config.php');
-
-
-
-if (!empty($username)) {
-  $query5 = 'select id,usuario,id_roles from tbl_usuarios
-  where usuario = "' . $username . '"';
-  $sql5 = $pdo->prepare($query5);
-  $sql5->execute();
-  $getUser = $sql5->fetchAll(PDO::FETCH_OBJ);
-
-  $permiso = '';
-
-  if ($getUser[0]->id_roles == 1) {
-    $permiso = '';
-  } else {
-    $permiso = 'd-none';
-  }
-}
-
-?>
-
 <div class="container-fluid">
   <div class="row flex-nowrap">
 
@@ -53,29 +29,35 @@ if (!empty($username)) {
               </ul>
             </div>
           </li>
-
-          <li class="nav-item mx-1 w-100">
-            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-1 align-middle text-warning <?= $permiso ?>" data-bs-target="#account-collapse2" aria-expanded="false">
+<?php
+if ( $_SESSION['id_roles'] == 1) {
+  ?>
+         <li class="nav-item mx-1 w-100">
+            <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-1 align-middle text-warning" data-bs-target="#account-collapse2" aria-expanded="false">
             <i class="bi bi-menu-app"></i><span class="ms-1 d-none d-sm-inline">Administrar</span></a>
             <div class="collapse show" id="account-collapse2">
               <ul class="btn-toggle-nav list-unstyled pb-1 small" id="submenu3" data-bs-parent="#menu">
 
                 <li class="w-100">
-                  <a href="../Views/usuariosView.php" class="nav-link px-1 aProperties text-white <?= $permiso ?>">
+                  <a href="../Views/usuariosView.php" class="nav-link px-1 aProperties text-white">
                     <i class="bi-people"></i> <span class="d-none d-sm-inline"> Usuarios</span> </a>
                 </li>
                 <li class="w-100">
-                  <a href="../Views/empleadosView.php" class="nav-link px-1 aProperties text-white <?= $permiso ?>">
+                  <a href="../Views/empleadosView.php" class="nav-link px-1 aProperties text-white">
                     <i class="bi bi-person-vcard"></i><span class="d-none d-sm-inline"> Empleados</span> </a>
                 </li>
                 <li class="w-100">
-                  <a href="../Views/rolesView.php" class="nav-link px-1 aProperties text-white <?= $permiso ?>">
+                  <a href="../Views/rolesView.php" class="nav-link px-1 aProperties text-white">
                   <i class="bi bi-person-rolodex"></i><span class="d-none d-sm-inline"> Roles</span> </a>
                 </li>
               </ul>
             </div>
           </li>
 
+  <?php
+} 
+?>
+ 
 
 
         </ul>

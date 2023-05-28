@@ -4,7 +4,7 @@ session_start();
 try {
     $user = htmlentities(addslashes($_POST['usuario']));
     $pass = htmlentities(addslashes($_POST['password']));
-    $sql = "SELECT * FROM tbl_usuarios WHERE usuario = :usuario";
+    $sql = "SELECT * FROM tbl_usuarios WHERE usuario = :usuario and status = 1";
     $resultado = $pdo->prepare($sql);
     $resultado->execute(array(":usuario" => $user));
     $login = $resultado->fetch(PDO::FETCH_ASSOC);

@@ -4,14 +4,14 @@
   date_default_timezone_set('America/Costa_Rica');
 
   $hora = date('H');
-
+$_SESSION["username"];
   // Determina el saludo adecuado en función de la hora del día
   if ($hora >= 5 && $hora < 12) {
-    $saludo = "¡Buenos días " . $username . "!";
+    $saludo = "¡Buenos días " . $_SESSION["username"] . "!";
   } else if ($hora >= 12 && $hora < 19) {
-    $saludo = "¡Buenas tardes " . $username . "!";
+    $saludo = "¡Buenas tardes " . $_SESSION["username"] . "!";
   } else {
-    $saludo = "¡Buenas noches " . $username . "!";
+    $saludo = "¡Buenas noches " . $_SESSION["username"] . "!";
   }
 
   if (isset($_SESSION['primer_login']) && $_SESSION['primer_login']) {
