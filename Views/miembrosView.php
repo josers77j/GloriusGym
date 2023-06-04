@@ -1,8 +1,8 @@
 <?php
 include('../config.php');
 include('../Includes/header.php');
-include('../Includes/adminCheck.php'); ?>
-<title>empleados</title>
+include('../Includes/loginCheck.php'); ?>
+<title>membresias</title>
 </head>
 <?php
 include('../Includes/menu.php');
@@ -11,9 +11,8 @@ include('../Includes/saludo.php');
 <div class="container"><br>
     <div class="row">
         <div class="col-4">
-
             <?php
-            include("../Modals/empleadoCreate.php");
+            include("../Modals/miembrosCreate.php");
             ?>
         </div>
         <div class="container-fluid ">
@@ -38,12 +37,12 @@ include('../Includes/saludo.php');
                     <div class="col-auto my-2">
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-                            <input type="text" class="form-control" id="busqueda-empleados" placeholder="Buscar empleado..." aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" id="busqueda-miembros" placeholder="Buscar membresia..." aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
                     <div class="col-auto col-md4 my-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario(); ">
-                            <i class="bi bi-plus-circle-fill"> Nuevo Usuario</i>
+                            <i class="bi bi-plus-circle-fill"> Nueva membresia</i>
                         </button>
                     </div>
                 </div>
@@ -61,9 +60,7 @@ include('../Includes/saludo.php');
                                     <th scope="col">Direccion</th>
                                     <th scope="col">Telefono</th>
                                     <th scope="col">Correo</th>
-                                    <th scope="col">Fecha de Nacimiento</th>
-                                    <th scope="col">Salario</th>
-                                    <th scope="col">Fecha de registro</th>
+                                    <th scope="col">Fecha de registro</th>                                    
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>

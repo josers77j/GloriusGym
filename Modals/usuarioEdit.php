@@ -3,10 +3,6 @@ include('../config.php');
 $query = $pdo->prepare("call obtenerRoles()");
 $query->execute();
 $query = $query->fetchAll();
-
-
-
-
 ?>
 
 <!-- pdo::fetchAssoc  -->
@@ -62,7 +58,7 @@ $query = $query->fetchAll();
               </div>
             </div>
             <div class="form-group">
-              <label for="id_roles">Estado del usuario:</label>
+              <label for="id_status">Estado del usuario:</label>
               <div class="input-group mb-3">
               <select class="form-control" id="id_status" name="id_status">               
                 <option value="1">Activo</option>

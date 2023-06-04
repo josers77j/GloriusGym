@@ -15,7 +15,7 @@ try {
         $resultado2->execute(array(":usuario" => $user));
         
         $usuario = $resultado2->fetch(PDO::FETCH_ASSOC);
-      
+        $_SESSION['id'] = $usuario['id'];   
         $_SESSION['username'] = $usuario['usuario'];   
         $_SESSION['id_roles'] = $usuario['id_roles'];
         $_SESSION['token'] = $usuario['token'];
