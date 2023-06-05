@@ -41,14 +41,15 @@ include('../Includes/saludo.php');
                         <table id="tabla-asistencias" class="table table-borderless  text-center table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Tipo de Membresia</th>
-                                    <th scope="col">Telefono</th>
-                                    <th scope="col">Correo</th>
-                                    <th scope="col">Fecha de Nacimiento</th>
-                                    <th scope="col">Salario</th>
-                                    <th scope="col">Fecha de registro</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col">Hora y Fecha de asistencia</th>
+                                    <th scope="col">Miembro</th>
+
+                                    <!-- <?php if ($_SESSION["id_roles"] == 1) {
+                                        ?>
+                                          <th scope="col">Acciones</th>                                 
+                                        <?php
+                                    } ?> -->
+                                    
                                 </tr>
                             </thead>
                             <tbody>

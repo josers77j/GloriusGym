@@ -42,7 +42,7 @@ include('../Includes/saludo.php');
                     </div>
                     <div class="col-auto col-md4 my-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="nuevo" onclick="limpiarFormulario(); ">
-                            <i class="bi bi-plus-circle-fill"> Nueva membresia</i>
+                            <i class="bi bi-plus-circle-fill"> Nuevo Miembro</i>
                         </button>
                     </div>
                 </div>
